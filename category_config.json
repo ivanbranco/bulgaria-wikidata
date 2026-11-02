@@ -1,0 +1,290 @@
+{
+  "Amministrazione": {
+    "color": "#F4A261",
+    "subgroups": {
+      "Istruzione": {
+        "Scuola": ["Q3914"],
+        "Scuola dell'infanzia": ["Q126807"],
+        "Scuola primaria": ["Q9842"],
+        "Scuola secondaria": ["Q149566", "Q57775518", "Q9826", "Q3803834", "Q1981640", "Q3831968", "Q3803808"],
+        "Istituto comprensivo": ["Q56177191"],
+        "Conservatorio": ["Q184644", "Q1021290"],
+        "Complesso educativo": ["Q20860083", "Q2385804"],
+        "Istituzione accademica": ["Q4671277", "Q162633"]
+      },
+      "Uffici Pubblici": {
+        "Municipio": ["Q25550691", "Q15303838"],
+        "Comune italiano": ["Q747074"],
+        "Palazzo di giustizia": ["Q1137809"],
+        "Ufficio postale": ["Q35054"],
+        "Agenzia governativa": ["Q1188075"],
+        "Carcere": ["Q40357"]
+      }
+    }
+  },
+  "Cultura e tempo libero": {
+    "color": "#FFB703",
+    "subgroups": {
+      "Biblioteche": {
+        "Biblioteca pubblica": ["Q28564"],
+        "Biblioteca universitaria": ["Q1622062"],
+        "Biblioteca scolastica": ["Q1076099"],
+        "Biblioteca privata": ["Q380829"],
+        "Biblioteca specializzata": ["Q385994", "Q105763925"],
+        "Biblioteca di ente": ["Q124750618"],
+        "Biblioteca": ["Q7075", "Q124750618"]
+      },
+      "Musei": {
+        "Museo": ["Q33506", "Q124830213", "Q124830411", "Q614316"],
+        "Museo d'arte": ["Q207694", "Q108860593"],
+        "Pinacoteca": ["Q740437"],
+        "Museo archeologico": ["Q3329412"],
+        "Museo storico": ["Q16735822"],
+        "Museo etnografico": ["Q12104174"],
+        "Museo pubblico": ["Q124830213", "Q124830411"],
+        "Museo didattico": ["Q94701740"],
+        "Ecomuseo": ["Q94701721", "Q1798450"],
+        "Casa museo": ["Q2087181"]
+      },
+      "Archivi": {
+        "Archivio": ["Q166118", "Q604177"],
+        "Archivio comunale": ["Q604177"],
+        "Archivio di Stato": ["Q17620767"],
+        "Archivio accademico": ["Q27032435"],
+        "Archivio storico": ["Q3621673"]
+      },
+      "Spettacolo": {
+        "Teatro": ["Q24354"],
+        "Teatro d'opera": ["Q153562"],
+        "Cinema": ["Q41253"],
+        "Casinò": ["Q133215"],
+        "Centro culturale": ["Q1329623"]
+      },
+      "Sport": {
+        "Impianto sportivo": ["Q1076486", "Q1154710", "Q483110", "Q3958661"]
+      }
+    }
+  },
+  "Religione": {
+    "color": "#E63946",
+    "subgroups": {
+      "Luoghi di Culto": {
+        "Chiesa": ["Q16970", "Q317557", "Q55876909", "Q1088552"],
+        "Chiesa parrocchiale": ["Q55876909", "Q317557"],
+        "Basilica minore": ["Q120560"],
+        "Cappella": ["Q108325"],
+        "Cappella cimiteriale": ["Q1457501"],
+        "Oratorio": ["Q580499", "Q3884394"],
+        "Santuario": ["Q697295"],
+        "Tempio": ["Q44539"],
+        "Capitello votivo": ["Q3395121"],
+        "Via Crucis": ["Q231685", "Q1399033"],
+        "Ex chiesa": ["Q19899465", "Q57644089", "Q96352496", "Q96371632"],
+        "Edificio religioso": ["Q24398318"]
+      },
+      "Vita Monastica": {
+        "Monastero": ["Q44613"],
+        "Abbazia": ["Q160742"],
+        "Convento": ["Q1128397"],
+        "Canonica": ["Q607241"],
+        "Eremo": ["Q513550"]
+      },
+      "Cimiteri": {
+        "Cimitero": ["Q39614"],
+        "Cimitero di guerra": ["Q1241568"],
+        "Necropoli": ["Q200141"],
+        "Tomba": ["Q381885"],
+        "Monumento funebre": ["Q56055312"]
+      },
+      "Amministrazione Religiosa": {
+        "Parrocchia": ["Q102496"]
+      }
+    }
+  },
+  "Insediamenti": {
+    "color": "#457B9D",
+    "subgroups": {
+      "Centri": {
+        "Località": ["Q3257686"],
+        "Frazione": ["Q1134686"],
+        "Villaggio": ["Q532", "Q85842219"],
+        "Borgata": ["Q5084"],
+        "Insediamento umano": ["Q486972"],
+        "Località abitata": ["Q3835961"],
+        "Cittadina": ["Q3957"],
+        "Grande città": ["Q1549591"]
+      },
+      "Zone Urbane": {
+        "Centro storico": ["Q676050"],
+        "Quartiere": ["Q123705"],
+        "Ghetto": ["Q152018"],
+        "Piazza": ["Q174782"],
+        "Piazza della cattedrale": ["Q131542697"]
+      }
+    }
+  },
+  "Fortificazioni e militare": {
+    "color": "#606C38",
+    "subgroups": {
+      "Fortificazioni": {
+        "Castello": ["Q23413", "Q1408475"],
+        "Castello in rovina": ["Q17715832"],
+        "Rocca": ["Q1195705"],
+        "Forte": ["Q1785071"],
+        "Fortezza": ["Q57831"],
+        "Fortificazione": ["Q57821"],
+        "Mura cittadine": ["Q16748868"],
+        "Porta cittadina": ["Q82117"],
+        "Baluardo": ["Q81851"],
+        "Torre": ["Q12518"],
+        "Torre campanaria": ["Q200334"]
+      },
+      "Militare": {
+        "Caserma": ["Q131263"],
+        "Bunker": ["Q91122"],
+        "Campo di concentramento": ["Q152081"]
+      }
+    }
+  },
+  "Natura e paesaggio": {
+    "color": "#2A9D8F",
+    "subgroups": {
+      "Acqua": {
+        "Lago": ["Q23397", "Q4735538", "Q5926864"],
+        "Bacino artificiale": ["Q131681", "Q3215290"],
+        "Fiume": ["Q4022", "Q63565252", "Q1437299", "Q47521"],
+        "Sorgente": ["Q124714"],
+        "Cascata": ["Q34038"],
+        "Canale artificiale": ["Q12284"]
+      },
+      "Mare e Costa": {
+        "Spiaggia": ["Q40080"],
+        "Baia": ["Q39594"],
+        "Capo": ["Q185113"],
+        "Isola": ["Q23442"]
+      },
+      "Montagna": {
+        "Collina": ["Q54050"],
+        "Montagna": ["Q8502", "Q740445", "Q207326", "Q46831", "Q3958626", "Q2624046"],
+        "Valle": ["Q39816"],
+        "Passo": ["Q2231510", "Q133056"],
+        "Sella": ["Q10862618"],
+        "Gap": ["Q16887036"],
+        "Grotta": ["Q35509"],
+        "Ghiacciaio": ["Q35666"],
+        "Via ferrata": ["Q648116"]
+      },
+      "Verde": {
+        "Parco": ["Q22698"],
+        "Parco cittadino": ["Q22746"],
+        "Giardino": ["Q1107656"],
+        "Orto botanico": ["Q167346"],
+        "Albero monumentale": ["Q811534"],
+        "Area protetta": ["Q473972", "Q15069452", "Q3936950", "Q179049", "Q175208"]
+      }
+    }
+  },
+  "Dimore ed edifici": {
+    "color": "#A53860",
+    "subgroups": {
+      "Residenze": {
+        "Palazzo": ["Q16560"],
+        "Palazzo italiano": ["Q2651004"],
+        "Villa": ["Q3950", "Q111189432", "Q569879", "Q3558938"],
+        "Casa": ["Q3947", "Q16884952"],
+        "Cascina": ["Q1169748"],
+        "Grangia": ["Q1098590"],
+        "Fattoria": ["Q1098590"]
+      },
+      "Ospitalità": {
+        "Albergo": ["Q27686"],
+        "Guest house": ["Q2460422"],
+        "Rifugio di montagna": ["Q182676"],
+        "Bivacco alpino": ["Q20743510"],
+        "Bivacco": ["Q20743510"],
+        "Locanda": ["Q256020"]
+      },
+      "Strutture Varie": {
+        "Edificio": ["Q41176"],
+        "Complesso di edifici": ["Q1497375"],
+        "Struttura architettonica": ["Q811979"],
+        "Rifugio per cani": ["Q1411287"],
+        "Dépendance": ["Q3044808"]
+      }
+    }
+  },
+  "Infrastrutture": {
+    "color": "#7D8597",
+    "subgroups": {
+      "Trasporti": {
+        "Stazione ferroviaria": ["Q55488", "Q928830"],
+        "Fermata ferroviaria": ["Q55678"],
+        "Fermata dismessa": ["Q65464941"],
+        "Stazione metropolitana": ["Q928830"],
+        "Stazione sotterranea": ["Q22808403"],
+        "Fermata tram": ["Q2175765"],
+        "Linea ferroviaria": ["Q728937"],
+        "Aeroporto": ["Q1248784", "Q695850"],
+        "Aerodromo": ["Q94993988"],
+        "Porto": ["Q44782"],
+        "Valico di confine": ["Q55599109"],
+        "Galleria": ["Q44377", "Q2354973"],
+        "Strada urbana": ["Q79007", "Q34442"],
+        "Ponte": ["Q12280", "Q537127"],
+        "Viadotto": ["Q181348"],
+        "Faro": ["Q39715"],
+        "Portico": ["Q185600"]
+      },
+      "Industria e Tecnica": {
+        "Edificio industriale": ["Q1662011"],
+        "Mulino": ["Q44494"],
+        "Centrale telefonica": ["Q256132"],
+        "Centrale elettrica": ["Q339353"],
+        "Lavatoio": ["Q1690211"],
+        "Stazione meteorologica": ["Q190107"],
+        "Società scientifica": ["Q955824"],
+        "Osservatorio astronomico": ["Q1254933", "Q62832"],
+        "Fabbrica": ["Q3973051"]
+      },
+      "Servizi": {
+        "Sanità": ["Q16917", "Q1774898", "Q210999"],
+        "Servizio": ["Q13226383"],
+        "Impresa sociale": ["Q1071015"],
+        "Organizzazione no-profit": ["Q163740"]
+      }
+    }
+  },
+  "Archeologia": {
+    "color": "#8D6E63",
+    "subgroups": {
+      "Siti": {
+        "Sito archeologico": ["Q839954", "Q3363945"],
+        "Parco archeologico": ["Q3363945"],
+        "Nuraghe": ["Q688292", "Q1385277"],
+        "Domus": ["Q782970"],
+        "Domus de Janas": ["Q782970"],
+        "Tomba dei giganti": ["Q1523627"],
+        "Rovine": ["Q109607", "Q17485079"],
+        "Città antica": ["Q15661340"],
+        "Anfiteatro": ["Q41735"],
+        "Teatro romano": ["Q3243464"],
+        "Terme": ["Q1341387"]
+      }
+    }
+  },
+  "Monumenti": {
+    "color": "#9D4EDD",
+    "subgroups": {
+      "Monumenti": {
+        "Monumento": ["Q4989906", "Q5003624", "Q1885014"],
+        "Memoriale di guerra": ["Q575759"],
+        "Monumento ai caduti": ["Q575759", "Q114124381"],
+        "Arco di trionfo": ["Q200688"],
+        "Targa commemorativa": ["Q721747"],
+        "Statua": ["Q179700", "Q2293362"],
+        "Fontana": ["Q483453"],
+        "Elemento architettonico": ["Q391414"]
+      }
+    }
+  }
+}
