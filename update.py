@@ -53,7 +53,7 @@ OVERPASS_ENDPOINTS = [
 ]
 OVERPASS_HEADERS = {
     # overpass-api.de lehnt anonyme/generische User-Agents (python-requests) ab
-    'User-Agent': 'ItaliaWikidataBot/1.2 (https://github.com/ilselvaggio/italia-wikidata)',
+    'User-Agent': 'BulgariaWikidataBot/1.2 (https://github.com/ivanbranco/bulgaria-wikidata)',
     'Accept-Encoding': 'gzip',
 }
 OSM_FAILURES = []
@@ -143,7 +143,7 @@ def get_wikidata_clean(qid, retries=3):
        BIND(geof:latitude(?loc) as ?lat)
        BIND(geof:longitude(?loc) as ?lon)
 
-       SERVICE wikibase:label {{ bd:serviceParam wikibase:language "it,en". }}
+       SERVICE wikibase:label {{ bd:serviceParam wikibase:language "bg,en". }}
     }}"""
     headers = {
         'User-Agent': 'ItaliaWikidataBot/1.1 (https://ilselvaggio.github.io/italia-wikidata)', 

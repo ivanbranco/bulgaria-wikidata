@@ -1,13 +1,13 @@
-name: Daily Italy Wikidata Update
+name: Daily Bulgaria Wikidata Update
 
 on:
   schedule:
-    # 00:00 UTC entspricht 01:00 MEZ (Winterzeit) / 02:00 MESZ (Sommerzeit)
+    # 00:00 UTC
     - cron: '0 0 * * *'
   workflow_dispatch: # Ermöglicht manuelles Starten über die GitHub-Oberfläche zum Testen
     inputs:
       region:
-        description: 'Region key (z.B. molise) oder all'
+        description: 'Region key (z.B. pernik) oder all'
         default: 'all'
 
 jobs:
