@@ -146,7 +146,7 @@ def get_wikidata_clean(qid, retries=3):
        SERVICE wikibase:label {{ bd:serviceParam wikibase:language "bg,en". }}
     }}"""
     headers = {
-        'User-Agent': 'ItaliaWikidataBot/1.1 (https://ilselvaggio.github.io/italia-wikidata)', 
+        'User-Agent': 'BulgariaWikidataBot/1.1 (https://ivanbranco.github.io/bulgaria-wikidata)', 
         'Accept-Encoding': 'gzip', 
         'Accept': 'text/csv'
     }
