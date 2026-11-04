@@ -154,11 +154,12 @@
         "Cascata": ["Q34038"],
         "Canale artificiale": ["Q12284"]
       },
-      "Mare e Costa": {
-        "Spiaggia": ["Q40080"],
-        "Baia": ["Q39594"],
-        "Capo": ["Q185113"],
-        "Isola": ["Q23442"]
+      "Sea and Coast": {
+        "Beach": ["Q40080"],
+        "Bay": ["Q39594"],
+        "Cape": ["Q185113"],
+	"River island": ["Q162602"],
+        "Island": ["Q23442"]
       },
       "Montagna": {
         "Collina": ["Q54050"],
