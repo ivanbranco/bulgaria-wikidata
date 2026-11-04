@@ -429,7 +429,10 @@
         regionLayers = {};
         regionsGeoLayer = L.geoJSON(boundariesGeoJSON, {
             pane: 'regionsPane',
-            style: getRegionStyleForFeature,
+            filter: function(feature) {
+                return feature.geometry.type !== 'Point';
+    },
+    style: getRegionStyleForFeature,
             onEachFeature: (f, l) => { 
                 var k = getKeyFromFeature(f); 
                 if (k) { 
