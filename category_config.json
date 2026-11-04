@@ -51,12 +51,13 @@
         "Archivio accademico": ["Q27032435"],
         "Archivio storico": ["Q3621673"]
       },
-      "Spettacolo": {
-        "Teatro": ["Q24354"],
-        "Teatro d'opera": ["Q153562"],
+      "Entertainment": {
+        "Theatre": ["Q24354"],
+        "Opera house": ["Q153562"],
         "Cinema": ["Q41253"],
-        "Casinò": ["Q133215"],
-        "Centro culturale": ["Q1329623"]
+        "Casino": ["Q133215"],
+        "Cultural centre": ["Q1329623"],
+        "Čitalište": ["Q1638962"]
       },
       "Sport": {
         "Impianto sportivo": ["Q1076486", "Q1154710", "Q483110", "Q3958661"]
