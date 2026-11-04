@@ -158,7 +158,7 @@
         "Beach": ["Q40080"],
         "Bay": ["Q39594"],
         "Cape": ["Q185113"],
-	"River island": ["Q162602"],
+	    "River island": ["Q162602"],
         "Island": ["Q23442"]
       },
       "Montagna": {
@@ -225,7 +225,7 @@
         "Valico di confine": ["Q55599109"],
         "Galleria": ["Q44377", "Q2354973"],
         "Strada urbana": ["Q79007", "Q34442"],
-	"Boulevard": ["Q54114"],
+	    "Boulevard": ["Q54114"],
         "Ponte": ["Q12280", "Q537127"],
         "Viadotto": ["Q181348"],
         "Faro": ["Q39715"],
