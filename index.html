@@ -143,8 +143,8 @@
     </div>
     <div id="controls">
         <div id="loading">Loading...</div>
-        <div class="stat-item" id="stat-missing" onclick="toggleCheckbox('chkMissing')" title="Solo Wikidata">
-            <span class="dot dot-red"></span><input type="checkbox" id="chkMissing" checked onchange="toggleLayer('missing', this.checked)"> <span>Solo Wikidata</span> <span id="count-missing" style="font-weight:bold"></span>
+        <div class="stat-item" id="stat-missing" onclick="toggleCheckbox('chkMissing')" title="Wikidata Only">
+            <span class="dot dot-red"></span><input type="checkbox" id="chkMissing" checked onchange="toggleLayer('missing', this.checked)"> <span>Wikidata Only</span> <span id="count-missing" style="font-weight:bold"></span>
         </div>
         <button id="btnDownload" class="btn-download" onclick="downloadCurrentMissing()" title="Download selection">⬇</button>
         <div class="stat-item" id="stat-done" onclick="toggleCheckbox('chkDone')" title="OSM+Wikidata">
