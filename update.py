@@ -301,9 +301,9 @@ def main():
                     subgroup = match["subgroup"]
                     type_name = match["type"]
                 else:
-                    group = "Altro"
-                    subgroup = "Altro"
-                    type_name = "Altro"
+                    group = "Other"
+                    subgroup = "Other"
+                    type_name = "Other"
 
                 status = "done" if qid in osm_ids else "missing"
 

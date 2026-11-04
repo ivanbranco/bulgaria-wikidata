@@ -139,14 +139,14 @@
     <div id="left-col">
         <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
         <div id="title" onclick="location.reload()">Panoramica OpenStreetMap-Wikidata Bulgaria</div>
-        <button id="cat-toggle-btn" onclick="location.reload()">Torna a panoramica</button>
+        <button id="cat-toggle-btn" onclick="location.reload()">Back to overview</button>
     </div>
     <div id="controls">
-        <div id="loading">Caricamento...</div>
+        <div id="loading">Loading...</div>
         <div class="stat-item" id="stat-missing" onclick="toggleCheckbox('chkMissing')" title="Solo Wikidata">
             <span class="dot dot-red"></span><input type="checkbox" id="chkMissing" checked onchange="toggleLayer('missing', this.checked)"> <span>Solo Wikidata</span> <span id="count-missing" style="font-weight:bold"></span>
         </div>
-        <button id="btnDownload" class="btn-download" onclick="downloadCurrentMissing()" title="Scarica selezione">⬇</button>
+        <button id="btnDownload" class="btn-download" onclick="downloadCurrentMissing()" title="Download selection">⬇</button>
         <div class="stat-item" id="stat-done" onclick="toggleCheckbox('chkDone')" title="OSM+Wikidata">
             <span class="dot dot-green"></span><input type="checkbox" id="chkDone" onchange="toggleLayer('done', this.checked)"> <span>OSM+Wikidata</span> <span id="count-done" style="font-weight:bold"></span>
         </div>
@@ -159,12 +159,12 @@
 <div id="main-container">
     <div id="sidebar">
         <div id="sidebar-content"></div>
-        <div id="sidebar-footer">Panoramica a cura di: Michael Wild</div>
+        <div id="sidebar-footer">Overview by: Michael Wild</div>
     </div>
     <div id="map">
         <div id="map-placeholder">
-            <span class="desktop-msg">Seleziona una regione</span>
-            <span class="mobile-msg">↖ Toccare il menu (☰) per scegliere una regione</span>
+            <span class="desktop-msg">Select a province</span>
+            <span class="mobile-msg">↖ Tap the menu (☰) to choose a province</span>
         </div>
     </div>
 </div>
@@ -195,10 +195,10 @@
 
     // --- GROUPS & COLORS ---
     var groupColors = {
-        "Religione": "#E63946", "Archeologia": "#8D6E63", "Cultura e tempo libero": "#FFB703", 
-        "Amministrazione": "#F4A261", "Fortificazioni e militare": "#606C38", 
-        "Dimore ed edifici": "#A53860", "Natura e paesaggio": "#2A9D8F", "Insediamenti": "#457B9D", 
-        "Infrastrutture": "#7D8597", "Monumenti": "#9D4EDD", "Altro": "#000000"
+        "Religion": "#E63946", "Archaeology": "#8D6E63", "Culture and leisure": "#FFB703", 
+        "Administration": "#F4A261", "Fortifications and military": "#606C38", 
+        "Residences and buildings": "#A53860", "Nature and landscape": "#2A9D8F", "Settlements": "#457B9D", 
+        "Infrastructure": "#7D8597", "Monuments": "#9D4EDD", "Other": "#000000"
     };
 
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
@@ -221,11 +221,11 @@
         
         if(metadata.global_osm_date) {
              let d = new Date(metadata.global_osm_date);
-             document.getElementById('date-osm').innerText = !isNaN(d) ? d.toLocaleString('it-IT', dateOpts) : metadata.global_osm_date;
+             document.getElementById('date-osm').innerText = !isNaN(d) ? d.toLocaleString('en-GB', dateOpts) : metadata.global_osm_date;
         }
         if(metadata.global_wiki_date) {
              let d = new Date(metadata.global_wiki_date);
-             document.getElementById('date-wiki').innerText = !isNaN(d) ? d.toLocaleString('it-IT', dateOpts) : metadata.global_wiki_date;
+             document.getElementById('date-wiki').innerText = !isNaN(d) ? d.toLocaleString('en-GB', dateOpts) : metadata.global_wiki_date;
         }
 
         renderSidebar();
@@ -375,7 +375,7 @@
                         var sgDlBtn = document.createElement('button');
                         sgDlBtn.className = "subgroup-dl-btn";
                         sgDlBtn.innerHTML = "⬇";
-                        sgDlBtn.title = "Scarica " + subgroup;
+                        sgDlBtn.title = "Download " + subgroup;
                         sgDlBtn.onclick = (e) => { e.stopPropagation(); downloadSubgroup(subgroup); };
 
                         sgHeader.appendChild(sgLabel);
@@ -397,7 +397,7 @@
                         var btnPart = document.createElement('button');
                         btnPart.className = "subcat-dl-btn";
                         btnPart.innerHTML = "⬇";
-                        btnPart.title = "Scarica JSON";
+                        btnPart.title = "Download JSON";
                         btnPart.onclick = (e) => { e.stopPropagation(); downloadSubcategory(type); };
 
                         item.appendChild(labelPart);
@@ -465,7 +465,7 @@
         
         document.body.classList.add('region-loaded');
         document.getElementById('map-placeholder').style.display = 'none';
-        document.getElementById('cat-toggle-btn').innerText = "Torna a panoramica";
+        document.getElementById('cat-toggle-btn').innerText = "Back to overview";
         document.getElementById('cat-toggle-btn').style.display = 'block'; 
         document.getElementById('controls').style.display = 'flex';
 
@@ -549,7 +549,7 @@
     function downloadSubcategory(cat) {
         if (!currentData) return;
         var feats = currentData.features.filter(f => f.properties.status === 'missing' && f.properties.subcategory === cat);
-        if (feats.length === 0) { alert("Nessun elemento da scaricare."); return; }
+        if (feats.length === 0) { alert("Nothing to download for this group."); return; }
         
         var regionName = regionConfig[selectedRegionKey].name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
         var catName = cat.replace(/[^a-z0-9]/gi, '_').toLowerCase();

@@ -1,5 +1,5 @@
 {
-  "Amministrazione": {
+  "Administration": {
     "color": "#F4A261",
     "subgroups": {
       "Istruzione": {
@@ -22,7 +22,7 @@
       }
     }
   },
-  "Cultura e tempo libero": {
+  "Culture and leisure": {
     "color": "#FFB703",
     "subgroups": {
       "Biblioteche": {
@@ -65,7 +65,7 @@
       }
     }
   },
-  "Religione": {
+  "Religion": {
     "color": "#E63946",
     "subgroups": {
       "Luoghi di Culto": {
@@ -101,7 +101,7 @@
       }
     }
   },
-  "Insediamenti": {
+  "Settlements": {
     "color": "#457B9D",
     "subgroups": {
       "Centri": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "Fortificazioni e militare": {
+  "Fortifications and military": {
     "color": "#606C38",
     "subgroups": {
       "Fortificazioni": {
@@ -146,7 +146,7 @@
       }
     }
   },
-  "Natura e paesaggio": {
+  "Natura and landscape": {
     "color": "#2A9D8F",
     "subgroups": {
       "Acqua": {
@@ -184,7 +184,7 @@
       }
     }
   },
-  "Dimore ed edifici": {
+  "Residences and buildings": {
     "color": "#A53860",
     "subgroups": {
       "Residenze": {
@@ -213,7 +213,7 @@
       }
     }
   },
-  "Infrastrutture": {
+  "Infrastructure": {
     "color": "#7D8597",
     "subgroups": {
       "Trasporti": {
@@ -254,7 +254,7 @@
       }
     }
   },
-  "Archeologia": {
+  "Archaeology": {
     "color": "#8D6E63",
     "subgroups": {
       "Siti": {
@@ -272,7 +272,7 @@
       }
     }
   },
-  "Monumenti": {
+  "Monuments": {
     "color": "#9D4EDD",
     "subgroups": {
       "Monumenti": {
