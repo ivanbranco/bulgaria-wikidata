@@ -67,19 +67,19 @@
   "Religion": {
     "color": "#E63946",
     "subgroups": {
-      "Luoghi di Culto": {
-        "Chiesa": ["Q16970", "Q317557", "Q55876909", "Q1088552"],
-        "Chiesa parrocchiale": ["Q55876909", "Q317557"],
-        "Basilica minore": ["Q120560"],
-        "Cappella": ["Q108325"],
-        "Cappella cimiteriale": ["Q1457501"],
-        "Oratorio": ["Q580499", "Q3884394"],
+      "Places of Worship": {
+        "Church": ["Q16970", "Q317557", "Q55876909", "Q1088552"],
+        "Parish church": ["Q55876909", "Q317557"],
+        "Minor basilica": ["Q120560"],
+        "Chapel": ["Q108325"],
+        "Cemetery chapel": ["Q1457501"],
+        "Oratory": ["Q580499", "Q3884394"],
         "Santuario": ["Q697295"],
-        "Tempio": ["Q44539"],
-        "Capitello votivo": ["Q3395121"],
-        "Via Crucis": ["Q231685", "Q1399033"],
-        "Ex chiesa": ["Q19899465", "Q57644089", "Q96352496", "Q96371632"],
-        "Edificio religioso": ["Q24398318"]
+        "Shrine": ["Q44539"],
+        "Wayside shrine": ["Q3395121"],
+        "Stations of the Cross": ["Q231685", "Q1399033"],
+        "Former church": ["Q19899465", "Q57644089", "Q96352496", "Q96371632"],
+        "Religious building": ["Q24398318"]
       },
       "Vita Monastica": {
         "Monastero": ["Q44613"],
