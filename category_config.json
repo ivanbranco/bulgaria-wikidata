@@ -225,6 +225,7 @@
         "Valico di confine": ["Q55599109"],
         "Galleria": ["Q44377", "Q2354973"],
         "Strada urbana": ["Q79007", "Q34442"],
+	"Boulevard": ["Q54114"],
         "Ponte": ["Q12280", "Q537127"],
         "Viadotto": ["Q181348"],
         "Faro": ["Q39715"],
