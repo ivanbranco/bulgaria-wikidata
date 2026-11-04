@@ -88,8 +88,8 @@
         "Eremo": ["Q513550"]
       },
       "Cimiteri": {
-        "Cimitero": ["Q39614"],
-        "Cimitero di guerra": ["Q1241568"],
+        "Cemetery": ["Q39614"],
+        "War cemetery": ["Q1241568", "Q1707610"],
         "Necropoli": ["Q200141"],
         "Tomba": ["Q381885"],
         "Monumento funebre": ["Q56055312"]
