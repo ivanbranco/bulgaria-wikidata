@@ -68,7 +68,7 @@
     "color": "#E63946",
     "subgroups": {
       "Places of Worship": {
-        "Church": ["Q16970", "Q317557", "Q55876909", "Q1088552"],
+        "Church": ["Q16970", "Q317557", "Q55876909", "Q1088552", "Q2031836"],
         "Parish church": ["Q55876909", "Q317557"],
         "Minor basilica": ["Q120560"],
         "Chapel": ["Q108325"],
