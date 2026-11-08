@@ -9,7 +9,7 @@ Adapted from [italia-wikidata](https://github.com/ilselvaggio/italia-wikidata).
 ## How it works
 
 - `update.py` downloads, for each province, the OSM objects with a `wikidata` tag (Overpass API) and the Wikidata items located in it (`P131*`, with coordinates). It writes `data_overpass/data_<province>.geojson`, `metadata.json` and `history.json`.
-- `.github/workflows/daily_update.yml` runs the script every night (00:00 UTC) and commits the results. It can also be started manually from the **Actions** tab, for one province (`plovdiv`), several (`plovdiv,varna`) or `all`.
+- `.github/workflows/weekly_update.yml` runs the script every Monday (00:00 UTC) and commits the results. It can also be started manually from the **Actions** tab, for one province (`plovdiv`), several (`plovdiv,varna`) or `all`.
 - `index.html` is the map (Leaflet), published with GitHub Pages.
 
 ## Configuration files

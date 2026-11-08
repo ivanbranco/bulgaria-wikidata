@@ -212,7 +212,7 @@ def slim_osm(data):
 # ---------------------------------------------------------------- Wikidata
 
 def get_wikidata_csv(qid, retries=3):
-    query = f"""SELECT DISTINCT ?qid ?lat ?lon ?itemLabel ?type WHERE {{
+    query = f"""SELECT DISTINCT ?qid ?lat ?lon ?itemLabel ?type ?event WHERE {{
        ?item wdt:P131* wd:{qid}; wdt:P625 ?loc .
 
        FILTER NOT EXISTS {{ ?item wdt:P582 ?end. FILTER(?end < NOW()) }}
@@ -224,6 +224,8 @@ def get_wikidata_csv(qid, retries=3):
        MINUS {{ ?item p:P131 ?stmt . ?stmt pq:P582 ?linkEnd . FILTER(?linkEnd < NOW()) }}
 
        OPTIONAL {{ ?item wdt:P31 ?type. }}
+       # P585 "point in time" = evento (battaglia, incidente, terremoto, crimine...)
+       BIND(EXISTS {{ ?item wdt:P585 ?pointInTime }} AS ?event)
 
        BIND(STRAFTER(STR(?item), '/entity/') as ?qid)
        BIND(geof:latitude(?loc) as ?lat)
@@ -251,7 +253,9 @@ def get_wikidata_csv(qid, retries=3):
 
 def parse_wikidata(csv_text, qid_lookup, blacklist):
     """Una riga per ogni combinazione item/P31: raccoglie tutti i tipi di un item
-    e sceglie il primo riconosciuto in category_config.json."""
+    e sceglie il primo riconosciuto in category_config.json.
+    Scarta gli eventi (item con P585) che non hanno un tipo di luogo riconosciuto:
+    così un omicidio o una battaglia spariscono, uno stadio con P585 messo per errore resta."""
     items = {}
     for row in csv.DictReader(csv_text.splitlines()):
         qid = (row.get("qid") or "").split("/")[-1].upper()
@@ -263,11 +267,15 @@ def parse_wikidata(csv_text, qid_lookup, blacklist):
                 lat, lon = float(row["lat"]), float(row["lon"])
             except (KeyError, TypeError, ValueError):
                 continue
-            item = items[qid] = {"name": row.get("itemLabel") or qid, "lat": lat, "lon": lon, "cat": None}
+            item = items[qid] = {"name": row.get("itemLabel") or qid, "lat": lat, "lon": lon, "cat": None,
+                                 "event": (row.get("event") or "").lower() == "true"}
         if item["cat"] is None:
             type_qid = (row.get("type") or "").split("/")[-1].upper()
             item["cat"] = qid_lookup.get(type_qid)
-    return items
+    events = [q for q, it in items.items() if it["event"] and it["cat"] is None]
+    if events:
+        log(f"   -> Esclusi {len(events)} eventi (P585): {', '.join(events[:10])}{' ...' if len(events) > 10 else ''}")
+    return {q: it for q, it in items.items() if q not in events}
 
 
 # ---------------------------------------------------------------- Main

@@ -1,9 +1,9 @@
-name: Daily Bulgaria Wikidata Update
+name: Weekly Bulgaria Wikidata Update
 
 on:
   schedule:
-    # 00:00 UTC
-    - cron: '0 0 * * *'
+    # ogni lunedì alle 00:00 UTC
+    - cron: '0 0 * * 1'
   workflow_dispatch: # avvio manuale dalla scheda Actions
     inputs:
       region:
