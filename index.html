@@ -160,6 +160,11 @@
     map.createPane('regionsPane'); map.getPane('regionsPane').style.zIndex = 400;
     map.createPane('activeBorderPane'); map.getPane('activeBorderPane').style.zIndex = 500;
     map.createPane('markersPane'); map.getPane('markersPane').style.zIndex = 600;
+    // With preferCanvas each pane gets its own canvas covering the whole map: panes above the regions
+    // must not catch the mouse, otherwise hover/click on provinces stops working after "Back to overview"
+    map.getPane('activeBorderPane').style.pointerEvents = 'none';
+    function setMarkersInteractive(on) { map.getPane('markersPane').style.pointerEvents = on ? '' : 'none'; }
+    setMarkersInteractive(false);
 
     var layers = { missing: L.layerGroup(), done: L.layerGroup(), regions: L.layerGroup(), activeBorder: L.layerGroup() };
     var regionConfig, metaDataGlobal = {}, boundariesGeoJSON, historyData = [];
@@ -413,6 +418,7 @@
         activeCategoryFilters.clear();
         expandedGroups.clear();
         layers.missing.clearLayers(); layers.done.clearLayers(); layers.activeBorder.clearLayers();
+        setMarkersInteractive(false);
         if (regionsGeoLayer) regionsGeoLayer.eachLayer(l => regionsGeoLayer.resetStyle(l));
         document.body.classList.remove('region-loaded');
         document.getElementById('map-placeholder').style.display = '';
@@ -429,6 +435,7 @@
         selectedRegionKey = key;
         viewMode = 'categories';
         currentData = null;
+        setMarkersInteractive(true);
         activeCategoryFilters.clear();
         expandedGroups.clear();
 
