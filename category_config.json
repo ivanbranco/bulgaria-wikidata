@@ -2,54 +2,54 @@
   "Administration": {
     "color": "#F4A261",
     "subgroups": {
-      "Istruzione": {
-        "Scuola": ["Q3914"],
-        "Scuola dell'infanzia": ["Q126807"],
-        "Scuola primaria": ["Q9842"],
-        "Scuola secondaria": ["Q149566", "Q57775518", "Q9826", "Q3803834", "Q1981640", "Q3831968", "Q3803808"],
-        "Conservatorio": ["Q184644", "Q1021290"],
-        "Complesso educativo": ["Q20860083", "Q2385804"],
-        "Istituzione accademica": ["Q4671277", "Q162633"]
+      "Education": {
+        "School": ["Q3914"],
+        "Kindergarten": ["Q126807"],
+        "Primary school": ["Q9842"],
+        "Secondary school": ["Q149566", "Q57775518", "Q9826", "Q3803834", "Q1981640", "Q3831968", "Q3803808"],
+        "Conservatory": ["Q184644", "Q1021290"],
+        "Educational complex": ["Q20860083", "Q2385804"],
+        "Academic institution": ["Q4671277", "Q162633"]
       },
-      "Uffici Pubblici": {
-        "Municipio": ["Q25550691", "Q15303838"],
-        "Palazzo di giustizia": ["Q1137809"],
-        "Ufficio postale": ["Q35054"],
-        "Agenzia governativa": ["Q1188075"],
-        "Carcere": ["Q40357"]
+      "Public offices": {
+        "Town hall": ["Q25550691", "Q15303838"],
+        "Courthouse": ["Q1137809"],
+        "Post office": ["Q35054"],
+        "Government agency": ["Q1188075"],
+        "Prison": ["Q40357"]
       }
     }
   },
   "Culture and leisure": {
     "color": "#FFB703",
     "subgroups": {
-      "Biblioteche": {
-        "Biblioteca pubblica": ["Q28564"],
-        "Biblioteca universitaria": ["Q1622062"],
-        "Biblioteca scolastica": ["Q1076099"],
-        "Biblioteca privata": ["Q380829"],
-        "Biblioteca specializzata": ["Q385994", "Q105763925"],
-        "Biblioteca di ente": ["Q124750618"],
-        "Biblioteca": ["Q7075", "Q124750618"]
+      "Libraries": {
+        "Library": ["Q7075"],
+        "Public library": ["Q28564"],
+        "University library": ["Q1622062"],
+        "School library": ["Q1076099"],
+        "Private library": ["Q380829"],
+        "Special library": ["Q385994", "Q105763925"],
+        "Institutional library": ["Q124750618"]
       },
-      "Musei": {
-        "Museo": ["Q33506", "Q124830213", "Q124830411", "Q614316"],
-        "Museo d'arte": ["Q207694", "Q108860593"],
-        "Pinacoteca": ["Q740437"],
-        "Museo archeologico": ["Q3329412"],
-        "Museo storico": ["Q16735822"],
-        "Museo etnografico": ["Q12104174"],
-        "Museo pubblico": ["Q124830213", "Q124830411"],
-        "Museo didattico": ["Q94701740"],
-        "Ecomuseo": ["Q94701721", "Q1798450"],
-        "Casa museo": ["Q2087181"]
+      "Museums": {
+        "Museum": ["Q33506", "Q614316"],
+        "Public museum": ["Q124830213", "Q124830411"],
+        "Art museum": ["Q207694", "Q108860593"],
+        "Art gallery": ["Q740437"],
+        "Archaeological museum": ["Q3329412"],
+        "History museum": ["Q16735822"],
+        "Ethnographic museum": ["Q12104174"],
+        "Educational museum": ["Q94701740"],
+        "Ecomuseum": ["Q94701721", "Q1798450"],
+        "House museum": ["Q2087181"]
       },
-      "Archivi": {
-        "Archivio": ["Q166118", "Q604177"],
-        "Archivio comunale": ["Q604177"],
-        "Archivio di Stato": ["Q17620767"],
-        "Archivio accademico": ["Q27032435"],
-        "Archivio storico": ["Q3621673"]
+      "Archives": {
+        "Archive": ["Q166118"],
+        "Municipal archive": ["Q604177"],
+        "State archive": ["Q17620767"],
+        "Academic archive": ["Q27032435"],
+        "Historical archive": ["Q3621673"]
       },
       "Entertainment": {
         "Theatre": ["Q24354"],
@@ -57,227 +57,225 @@
         "Cinema": ["Q41253"],
         "Casino": ["Q133215"],
         "Cultural centre": ["Q1329623"],
-        "Čitalište": ["Q1638962"]
+        "Chitalishte": ["Q1638962"]
       },
       "Sport": {
-        "Impianto sportivo": ["Q1076486", "Q1154710", "Q483110", "Q3958661"]
+        "Sports venue": ["Q1076486", "Q1154710", "Q483110", "Q3958661"]
       }
     }
   },
   "Religion": {
     "color": "#E63946",
     "subgroups": {
-      "Places of Worship": {
-        "Church": ["Q16970", "Q317557", "Q55876909", "Q1088552", "Q2031836"],
+      "Places of worship": {
+        "Church": ["Q16970", "Q1088552", "Q2031836"],
         "Parish church": ["Q55876909", "Q317557"],
         "Minor basilica": ["Q120560"],
         "Chapel": ["Q108325"],
         "Cemetery chapel": ["Q1457501"],
         "Oratory": ["Q580499", "Q3884394"],
         "Sanctuary": ["Q697295"],
-		"Mosque": ["Q32815"],
+        "Mosque": ["Q32815"],
         "Shrine": ["Q44539"],
         "Wayside shrine": ["Q3395121"],
         "Stations of the Cross": ["Q231685", "Q1399033"],
         "Former church": ["Q19899465", "Q57644089", "Q96352496", "Q96371632"],
         "Religious building": ["Q24398318"]
       },
-      "Vita Monastica": {
-        "Monastero": ["Q44613"],
-        "Abbazia": ["Q160742"],
-        "Convento": ["Q1128397"],
-        "Canonica": ["Q607241"],
-        "Eremo": ["Q513550"]
+      "Monastic life": {
+        "Monastery": ["Q44613"],
+        "Abbey": ["Q160742"],
+        "Convent": ["Q1128397"],
+        "Clergy house": ["Q607241"],
+        "Hermitage": ["Q513550"]
       },
-      "Cimiteri": {
+      "Cemeteries": {
         "Cemetery": ["Q39614"],
         "War cemetery": ["Q1241568", "Q1707610"],
-        "Necropoli": ["Q200141"],
-        "Tomba": ["Q381885"],
-        "Monumento funebre": ["Q56055312"]
+        "Necropolis": ["Q200141"],
+        "Tomb": ["Q381885"],
+        "Funerary monument": ["Q56055312"]
       },
-      "Amministrazione Religiosa": {
-        "Parrocchia": ["Q102496"]
+      "Religious administration": {
+        "Parish": ["Q102496"]
       }
     }
   },
   "Settlements": {
     "color": "#457B9D",
     "subgroups": {
-      "Centri": {
-        "Località": ["Q3257686"],
-        "Villaggio": ["Q532", "Q85842219"],
-        "Borgata": ["Q5084"],
-        "Insediamento umano": ["Q486972"],
-        "Località abitata": ["Q3835961"],
-        "Cittadina": ["Q3957"],
-        "Grande città": ["Q1549591"]
+      "Places": {
+        "Locality": ["Q3257686"],
+        "Village": ["Q532", "Q85842219"],
+        "Hamlet": ["Q5084"],
+        "Human settlement": ["Q486972"],
+        "Populated place": ["Q3835961"],
+        "Town": ["Q3957"],
+        "City": ["Q1549591"]
       },
-      "Zone Urbane": {
-        "Centro storico": ["Q676050"],
-        "Quartiere": ["Q123705"],
+      "Urban areas": {
+        "Historic centre": ["Q676050"],
+        "Neighbourhood": ["Q123705"],
         "Ghetto": ["Q152018"],
-        "Piazza": ["Q174782"],
-        "Piazza della cattedrale": ["Q131542697"]
+        "Square": ["Q174782"],
+        "Cathedral square": ["Q131542697"]
       }
     }
   },
   "Fortifications and military": {
     "color": "#606C38",
     "subgroups": {
-      "Fortificazioni": {
-        "Castello": ["Q23413", "Q1408475"],
-        "Castello in rovina": ["Q17715832"],
-        "Rocca": ["Q1195705"],
-        "Forte": ["Q1785071"],
-        "Fortezza": ["Q57831"],
-        "Fortificazione": ["Q57821"],
-        "Mura cittadine": ["Q16748868"],
-        "Porta cittadina": ["Q82117"],
-        "Baluardo": ["Q81851"],
-        "Torre": ["Q12518"],
-        "Torre campanaria": ["Q200334"]
+      "Fortifications": {
+        "Castle": ["Q23413", "Q1408475"],
+        "Castle ruin": ["Q17715832"],
+        "Stronghold": ["Q1195705"],
+        "Fort": ["Q1785071"],
+        "Fortress": ["Q57831"],
+        "Fortification": ["Q57821"],
+        "City walls": ["Q16748868"],
+        "City gate": ["Q82117"],
+        "Bastion": ["Q81851"],
+        "Tower": ["Q12518"],
+        "Bell tower": ["Q200334"]
       },
-      "Militare": {
-        "Caserma": ["Q131263"],
+      "Military": {
+        "Barracks": ["Q131263"],
         "Bunker": ["Q91122"],
-        "Campo di concentramento": ["Q152081"]
+        "Concentration camp": ["Q152081"]
       }
     }
   },
-  "Natura and landscape": {
+  "Nature and landscape": {
     "color": "#2A9D8F",
     "subgroups": {
-      "Acqua": {
-        "Lago": ["Q23397", "Q4735538", "Q5926864"],
-        "Bacino artificiale": ["Q131681", "Q3215290"],
-        "Fiume": ["Q4022", "Q63565252", "Q1437299", "Q47521"],
-        "Sorgente": ["Q124714"],
-        "Cascata": ["Q34038"],
-        "Canale artificiale": ["Q12284"]
+      "Water": {
+        "Lake": ["Q23397", "Q4735538", "Q5926864"],
+        "Reservoir": ["Q131681", "Q3215290"],
+        "River": ["Q4022", "Q63565252", "Q1437299", "Q47521"],
+        "Spring": ["Q124714"],
+        "Waterfall": ["Q34038"],
+        "Canal": ["Q12284"]
       },
-      "Sea and Coast": {
+      "Sea and coast": {
         "Beach": ["Q40080"],
         "Bay": ["Q39594"],
         "Cape": ["Q185113"],
-	    "River island": ["Q162602"],
+        "River island": ["Q162602"],
         "Island": ["Q23442"]
       },
-      "Montagna": {
-        "Collina": ["Q54050"],
-        "Montagna": ["Q8502", "Q740445", "Q207326", "Q46831", "Q3958626", "Q2624046"],
-        "Valle": ["Q39816"],
-        "Passo": ["Q2231510", "Q133056"],
-        "Sella": ["Q10862618"],
+      "Mountains": {
+        "Hill": ["Q54050"],
+        "Mountain": ["Q8502", "Q740445", "Q207326", "Q46831", "Q3958626", "Q2624046"],
+        "Valley": ["Q39816"],
+        "Mountain pass": ["Q2231510", "Q133056"],
+        "Saddle": ["Q10862618"],
         "Gap": ["Q16887036"],
-        "Grotta": ["Q35509"],
-        "Ghiacciaio": ["Q35666"],
+        "Cave": ["Q35509"],
+        "Glacier": ["Q35666"],
         "Via ferrata": ["Q648116"]
       },
-      "Verde": {
-        "Parco": ["Q22698"],
-        "Parco cittadino": ["Q22746"],
-        "Giardino": ["Q1107656"],
-        "Orto botanico": ["Q167346"],
-        "Albero monumentale": ["Q811534"],
-        "Area protetta": ["Q473972", "Q15069452", "Q3936950", "Q179049", "Q175208"]
+      "Green spaces": {
+        "Park": ["Q22698"],
+        "Urban park": ["Q22746"],
+        "Garden": ["Q1107656"],
+        "Botanical garden": ["Q167346"],
+        "Monumental tree": ["Q811534"],
+        "Protected area": ["Q473972", "Q15069452", "Q3936950", "Q179049", "Q175208"]
       }
     }
   },
   "Residences and buildings": {
     "color": "#A53860",
     "subgroups": {
-      "Residenze": {
-        "Palazzo": ["Q16560"],
+      "Residences": {
+        "Palace": ["Q16560"],
         "Villa": ["Q3950", "Q111189432", "Q569879", "Q3558938"],
-        "Casa": ["Q3947", "Q16884952"],
-        "Fattoria": ["Q1098590"]
+        "House": ["Q3947", "Q16884952"],
+        "Farm": ["Q1098590"]
       },
-      "Ospitalità": {
-        "Albergo": ["Q27686"],
+      "Hospitality": {
+        "Hotel": ["Q27686"],
         "Guest house": ["Q2460422"],
-        "Rifugio di montagna": ["Q182676"],
-        "Bivacco alpino": ["Q20743510"],
-        "Bivacco": ["Q20743510"],
-        "Locanda": ["Q256020"]
+        "Mountain hut": ["Q182676"],
+        "Bivouac": ["Q20743510"],
+        "Inn": ["Q256020"]
       },
-      "Strutture Varie": {
-        "Edificio": ["Q41176"],
-        "Complesso di edifici": ["Q1497375"],
-        "Struttura architettonica": ["Q811979"],
-        "Rifugio per cani": ["Q1411287"],
-        "Dépendance": ["Q3044808"]
+      "Other structures": {
+        "Building": ["Q41176"],
+        "Building complex": ["Q1497375"],
+        "Architectural structure": ["Q811979"],
+        "Animal shelter": ["Q1411287"],
+        "Outbuilding": ["Q3044808"]
       }
     }
   },
   "Infrastructure": {
     "color": "#7D8597",
     "subgroups": {
-      "Trasporti": {
-        "Stazione ferroviaria": ["Q55488", "Q928830"],
-        "Fermata ferroviaria": ["Q55678"],
-        "Fermata dismessa": ["Q65464941"],
-        "Stazione metropolitana": ["Q928830"],
-        "Stazione sotterranea": ["Q22808403"],
-        "Fermata tram": ["Q2175765"],
-        "Linea ferroviaria": ["Q728937"],
-        "Aeroporto": ["Q1248784", "Q695850"],
-        "Aerodromo": ["Q94993988"],
-        "Porto": ["Q44782"],
-        "Valico di confine": ["Q55599109"],
-        "Galleria": ["Q44377", "Q2354973"],
-        "Strada urbana": ["Q79007", "Q34442"],
-	    "Boulevard": ["Q54114"],
-        "Ponte": ["Q12280", "Q537127"],
-        "Viadotto": ["Q181348"],
-        "Faro": ["Q39715"],
+      "Transport": {
+        "Railway station": ["Q55488"],
+        "Railway halt": ["Q55678"],
+        "Disused station": ["Q65464941"],
+        "Metro station": ["Q928830"],
+        "Underground station": ["Q22808403"],
+        "Tram stop": ["Q2175765"],
+        "Railway line": ["Q728937"],
+        "Airport": ["Q1248784", "Q695850"],
+        "Aerodrome": ["Q94993988"],
+        "Port": ["Q44782"],
+        "Border crossing": ["Q55599109"],
+        "Tunnel": ["Q44377", "Q2354973"],
+        "Street": ["Q79007", "Q34442"],
+        "Boulevard": ["Q54114"],
+        "Bridge": ["Q12280", "Q537127"],
+        "Viaduct": ["Q181348"],
+        "Lighthouse": ["Q39715"],
         "Portico": ["Q185600"]
       },
-      "Industria e Tecnica": {
-        "Edificio industriale": ["Q1662011"],
-        "Mulino": ["Q44494"],
-        "Centrale telefonica": ["Q256132"],
-        "Centrale elettrica": ["Q339353"],
-        "Lavatoio": ["Q1690211"],
-        "Stazione meteorologica": ["Q190107"],
-        "Società scientifica": ["Q955824"],
-        "Osservatorio astronomico": ["Q1254933", "Q62832"],
-        "Fabbrica": ["Q3973051"]
+      "Industry and technology": {
+        "Industrial building": ["Q1662011"],
+        "Mill": ["Q44494"],
+        "Telephone exchange": ["Q256132"],
+        "Power station": ["Q339353"],
+        "Wash house": ["Q1690211"],
+        "Weather station": ["Q190107"],
+        "Learned society": ["Q955824"],
+        "Observatory": ["Q1254933", "Q62832"],
+        "Factory": ["Q3973051"]
       },
-      "Servizi": {
-        "Sanità": ["Q16917", "Q1774898", "Q210999"],
-        "Servizio": ["Q13226383"],
-        "Impresa sociale": ["Q1071015"],
-        "Organizzazione no-profit": ["Q163740"]
+      "Services": {
+        "Healthcare": ["Q16917", "Q1774898", "Q210999"],
+        "Service": ["Q13226383"],
+        "Social enterprise": ["Q1071015"],
+        "Non-profit organisation": ["Q163740"]
       }
     }
   },
   "Archaeology": {
     "color": "#8D6E63",
     "subgroups": {
-      "Siti": {
-        "Sito archeologico": ["Q839954", "Q3363945"],
-        "Parco archeologico": ["Q3363945"],
-        "Rovine": ["Q109607", "Q17485079"],
-        "Città antica": ["Q15661340"],
-        "Anfiteatro": ["Q41735"],
-        "Teatro romano": ["Q3243464"],
-        "Terme": ["Q1341387"]
+      "Sites": {
+        "Archaeological site": ["Q839954"],
+        "Archaeological park": ["Q3363945"],
+        "Ruins": ["Q109607", "Q17485079"],
+        "Ancient city": ["Q15661340"],
+        "Amphitheatre": ["Q41735"],
+        "Roman theatre": ["Q3243464"],
+        "Roman baths": ["Q1341387"]
       }
     }
   },
   "Monuments": {
     "color": "#9D4EDD",
     "subgroups": {
-      "Monumenti": {
-        "Monumento": ["Q4989906", "Q5003624", "Q1885014"],
-        "Memoriale di guerra": ["Q575759"],
-        "Monumento ai caduti": ["Q575759", "Q114124381"],
-        "Arco di trionfo": ["Q200688"],
-        "Targa commemorativa": ["Q721747"],
-        "Statua": ["Q179700", "Q2293362"],
-        "Fontana": ["Q483453"],
-        "Elemento architettonico": ["Q391414"]
+      "Monuments": {
+        "Monument": ["Q4989906", "Q5003624", "Q1885014"],
+        "War memorial": ["Q575759", "Q114124381"],
+        "Triumphal arch": ["Q200688"],
+        "Commemorative plaque": ["Q721747"],
+        "Statue": ["Q179700", "Q2293362"],
+        "Fountain": ["Q483453"],
+        "Architectural element": ["Q391414"]
       }
     }
   }

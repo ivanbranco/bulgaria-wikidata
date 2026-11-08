@@ -4,132 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bulgaria OpenStreetMap-Wikidata Overview</title>
+    <meta name="description" content="Which Wikidata items in Bulgaria are already linked to OpenStreetMap, province by province.">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* --- CORE LAYOUT --- */
-        body, html { margin: 0; padding: 0; height: 100%; font-family: -apple-system, sans-serif; overflow: hidden; display: flex; flex-direction: column; }
-        
+        body, html { margin: 0; padding: 0; height: 100%; font-family: -apple-system, "Segoe UI", sans-serif; overflow: hidden; display: flex; flex-direction: column; }
+
         /* --- HEADER --- */
         #header { background-color: #333; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 5px; height: 50px; z-index: 3000; position: relative; flex-shrink: 0; }
         #left-col { display: flex; align-items: center; gap: 5px; flex: 1; min-width: 0; }
         #menu-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; padding: 0 5px; }
-        #title { font-weight: 700; font-size: 16px; cursor: pointer; text-decoration: none; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
+        #title { font-weight: 700; font-size: 16px; cursor: pointer; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
         #cat-toggle-btn { display: none; background: #e67e22; border: none; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 10px; flex-shrink: 0; }
         #cat-toggle-btn:hover { background: #d35400; }
-        
+
         #controls { display: none; gap: 8px; align-items: center; font-size: 12px; margin-left: auto; flex-shrink: 0; padding-right: 5px; }
-        #meta-info { font-size: 10px; color: #ccc; text-align: right; border-left: 1px solid #555; padding-left: 10px; min-width: 90px; display: block; margin-left: auto; margin-right: 5px;}
-        
+        #meta-info { font-size: 10px; color: #ccc; text-align: right; border-left: 1px solid #555; padding-left: 10px; min-width: 90px; display: block; margin-left: auto; margin-right: 5px; }
+
         /* --- PLACEHOLDER --- */
         #map-placeholder {
-          position: absolute;
-          top: 40%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 500;
-          background: rgba(0,0,0,0.7);
-          color: white;
-          padding: 15px 25px;
-          border-radius: 30px;
-          font-size: 14px;
-          pointer-events: none;
-          text-align: center;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-          backdrop-filter: blur(2px);
-          display: none; /* nascosto su desktop */
+          position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+          z-index: 500; background: rgba(0,0,0,0.7); color: white; padding: 15px 25px; border-radius: 30px;
+          font-size: 14px; pointer-events: none; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+          display: none; /* hidden on desktop */
         }
-        
-        @media (max-width: 768px) {
-          #map-placeholder { display: block; } /* visibile su mobile */
-          .desktop-msg { display: none; }
-          .mobile-msg { display: inline; }
-        }
-        
+        .mobile-msg { display: none; }
+
         /* --- SIDEBAR --- */
-        #sidebar { width: 220px; background-color: #2c3e50; color: #ecf0f1; border-right: 1px solid #1a252f; flex-shrink: 0; transition: transform 0.3s ease; display: flex; flex-direction: column; height: 100%; }
+        #sidebar { width: 230px; background-color: #2c3e50; color: #ecf0f1; border-right: 1px solid #1a252f; flex-shrink: 0; transition: transform 0.3s ease; display: flex; flex-direction: column; height: 100%; }
         #sidebar-content { flex-grow: 1; overflow-y: auto; overflow-x: hidden; }
         #sidebar-footer { padding: 12px; font-size: 10px; text-align: center; color: #7f8c8d; border-top: 1px solid #34495e; background-color: #233140; flex-shrink: 0; }
+        #sidebar-footer a { color: #95a5a6; }
 
         #main-container { display: flex; flex: 1; width: 100%; position: relative; overflow: hidden; }
         #map { flex-grow: 1; background: #f0f0f0; height: 100%; }
-        
-        /* List Item (Regions) */
-        .list-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #34495e; transition: background 0.2s; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Region list */
+        .list-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #34495e; transition: background 0.2s; font-size: 13px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
         .list-item:hover { background-color: #34495e; }
-        
-        /* --- ACCORDION STYLES (THE IMPORTANT PART) --- */
-        
-        /* Level 1: Main Groups */
+        .list-total { padding: 10px; background: #233140; border-bottom: 1px solid #1a252f; font-size: 12px; display: flex; justify-content: space-between; }
+        .trend { font-size: 10px; margin-right: 6px; font-weight: normal; }
+        .trend-up { color: #2ecc71; }
+        .trend-down { color: #e74c3c; }
+
+        /* --- ACCORDION --- */
         .group-header { display: flex; justify-content: space-between; align-items: stretch; border-bottom: 1px solid #2c3e50; font-size: 13px; background-color: #34495e; transition: background 0.2s; }
-        
-        /* Visual Feedback for Selected Groups */
         .group-header.fully-selected { background-color: #2980b9 !important; border-left: 4px solid #fff; }
         .group-header.partially-selected { border-left: 4px solid #f39c12; background-color: #3e5871; }
-
         .group-label { flex-grow: 1; padding: 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; }
         .group-label:hover { background-color: rgba(255,255,255,0.1); }
-        
         .group-toggle-icon { padding: 10px; cursor: pointer; border-left: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; width: 30px; }
         .group-toggle-icon:hover { background-color: rgba(255,255,255,0.2); }
-        
         .group-content { display: none; background-color: #2c3e50; }
         .group-content.expanded { display: block; }
-        
-        /* Level 2: Subgroups */
+
         .subgroup-header { display: flex; justify-content: space-between; align-items: center; padding: 0; background-color: #233140; border-bottom: 1px solid #2c3e50; }
         .subgroup-label { flex-grow: 1; padding: 8px 10px; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #bdc3c7; cursor: pointer; letter-spacing: 0.5px; }
         .subgroup-label:hover { color: #fff; background-color: #2c3e50; }
-        
-        /* Subgroup selection feedback */
         .subgroup-header.fully-selected .subgroup-label { color: #3498db; }
-
         .subgroup-dl-btn { width: 30px; border: none; background: rgba(0,0,0,0.2); color: #7f8c8d; cursor: pointer; display: flex; align-items: center; justify-content: center; border-left: 1px solid #2c3e50; padding: 8px 0; }
         .subgroup-dl-btn:hover { background: #27ae60; color: white; }
 
-        /* Level 3: Types */
         .subcat-item { padding: 0; cursor: pointer; border-bottom: 1px solid #34495e; font-size: 12px; display: flex; justify-content: space-between; align-items: stretch; }
         .subcat-item:hover { background-color: #3e5871; }
-        .subcat-item.selected { background-color: #2980b9; border-left: 4px solid #fff; } 
-        .subcat-label { flex-grow: 1; padding: 8px 5px 8px 25px; display: flex; justify-content: space-between; align-items: center;}
-        .subcat-item.selected .subcat-label { padding-left: 21px; } 
-        
+        .subcat-item.selected { background-color: #2980b9; border-left: 4px solid #fff; }
+        .subcat-label { flex-grow: 1; padding: 8px 5px 8px 25px; display: flex; justify-content: space-between; align-items: center; }
+        .subcat-item.selected .subcat-label { padding-left: 21px; }
         .subcat-dl-btn { width: 30px; border: none; background: rgba(0,0,0,0.2); color: #ccc; cursor: pointer; display: flex; align-items: center; justify-content: center; border-left: 1px solid #34495e; }
         .subcat-dl-btn:hover { background: #27ae60; color: white; }
 
-        /* Dots & Stats */
         .cat-dot { min-width: 10px; width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid #fff; margin-right: 8px; }
-        
         .stat-item { display: flex; align-items: center; gap: 4px; cursor: pointer; }
         .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid #fff; }
         .dot-red { background: #e74c3c; }
         .dot-green { background: #2ecc71; }
-        
+
         .btn-download { background-color: #bdc3c7; color: #333; border: 1px solid #95a5a6; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; display: none; }
-        #loading { display:none; color: #f1c40f; font-weight: bold; font-size: 11px; }
-        
+        #loading { display: none; color: #f1c40f; font-weight: bold; font-size: 11px; }
+
         .logo-row { display: flex; gap: 15px; margin-top: 8px; justify-content: center; align-items: center; }
         .logo-link { display: inline-block; width: 32px; height: 32px; transition: transform 0.2s; }
+        .logo-link:hover { transform: scale(1.1); }
         .logo-link img { width: 100%; height: 100%; object-fit: contain; }
 
         /* MOBILE */
+        @media (max-width: 768px) {
+            #map-placeholder { display: block; }
+            .desktop-msg { display: none; }
+            .mobile-msg { display: inline; }
+        }
         @media (max-width: 700px) {
-            #header { padding-left: 0; } 
+            #header { padding-left: 0; }
             #menu-toggle { display: block; }
             #sidebar { position: absolute; left: 0; top: 0; bottom: 0; z-index: 2000; transform: translateX(-100%); width: 250px; box-shadow: 2px 0 5px rgba(0,0,0,0.5); border-top: 1px solid #1a252f; }
             #sidebar.open { transform: translateX(0); }
             #title { display: none; }
-            body:not(.region-loaded) #title { display: block; max-width: 200px; } 
+            body:not(.region-loaded) #title { display: block; max-width: 200px; }
             #cat-toggle-btn { font-size: 11px; padding: 4px 8px; margin-left: 0; }
             #controls { gap: 5px; }
-            .stat-item span:nth-child(3) { display: none; } 
+            .stat-item span:nth-child(3) { display: none; }
             #meta-info { display: none; }
-            #btnDownload { display: none !important; } 
-            .subcat-dl-btn, .subgroup-dl-btn { display: none; } 
-            .desktop-msg { display: none; }
-            @media (max-width: 768px) {
-            .mobile-msg { display: inline; }
-            }
+            #btnDownload { display: none !important; }
+            .subcat-dl-btn, .subgroup-dl-btn { display: none; }
             .leaflet-control-zoom { display: none !important; }
         }
     </style>
@@ -137,17 +114,17 @@
 <body>
 <header id="header">
     <div id="left-col">
-        <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
-        <div id="title" onclick="location.reload()">Bulgaria OpenStreetMap-Wikidata Overview</div>
-        <button id="cat-toggle-btn" onclick="location.reload()">Back to overview</button>
+        <button id="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+        <div id="title" onclick="showOverview()">Bulgaria OpenStreetMap-Wikidata Overview</div>
+        <button id="cat-toggle-btn" onclick="showOverview()">Back to overview</button>
     </div>
     <div id="controls">
         <div id="loading">Loading...</div>
-        <div class="stat-item" id="stat-missing" onclick="toggleCheckbox('chkMissing')" title="Wikidata Only">
-            <span class="dot dot-red"></span><input type="checkbox" id="chkMissing" checked onchange="toggleLayer('missing', this.checked)"> <span>Wikidata Only</span> <span id="count-missing" style="font-weight:bold"></span>
+        <div class="stat-item" onclick="toggleCheckbox(event, 'chkMissing')" title="Wikidata items without an OSM object">
+            <span class="dot dot-red"></span><input type="checkbox" id="chkMissing" checked onchange="toggleLayer('missing', this.checked)"> <span>Wikidata only</span> <span id="count-missing" style="font-weight:bold"></span>
         </div>
-        <button id="btnDownload" class="btn-download" onclick="downloadCurrentMissing()" title="Download selection">⬇</button>
-        <div class="stat-item" id="stat-done" onclick="toggleCheckbox('chkDone')" title="OSM+Wikidata">
+        <button id="btnDownload" class="btn-download" onclick="downloadCurrentMissing()" title="Download missing items (GeoJSON)">⬇</button>
+        <div class="stat-item" onclick="toggleCheckbox(event, 'chkDone')" title="Wikidata items already linked in OSM">
             <span class="dot dot-green"></span><input type="checkbox" id="chkDone" onchange="toggleLayer('done', this.checked)"> <span>OSM+Wikidata</span> <span id="count-done" style="font-weight:bold"></span>
         </div>
     </div>
@@ -159,7 +136,7 @@
 <div id="main-container">
     <div id="sidebar">
         <div id="sidebar-content"></div>
-        <div id="sidebar-footer">Overview by: Michael Wild</div>
+        <div id="sidebar-footer">Overview by: Michael Wild<br><a href="https://github.com/ivanbranco/bulgaria-wikidata" target="_blank" rel="noopener">Source on GitHub</a></div>
     </div>
     <div id="map">
         <div id="map-placeholder">
@@ -170,67 +147,70 @@
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+    // Change this when regions.json, regions_boundaries.geojson or category_config.json change, so browsers reload them
+    var STATIC_VERSION = '2026-11-08';
+    var TREND_DAYS = 7;
+
     var map = L.map('map', { preferCanvas: true, zoomControl: false }).setView([42.7, 25.5], 7);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-    maxZoom: 19, 
-    attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>' 
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
     }).addTo(map);
     map.createPane('regionsPane'); map.getPane('regionsPane').style.zIndex = 400;
     map.createPane('activeBorderPane'); map.getPane('activeBorderPane').style.zIndex = 500;
     map.createPane('markersPane'); map.getPane('markersPane').style.zIndex = 600;
 
     var layers = { missing: L.layerGroup(), done: L.layerGroup(), regions: L.layerGroup(), activeBorder: L.layerGroup() };
-    var regionConfig, metaDataGlobal, boundariesGeoJSON;
-    var currentMissingFeatures = [];
-    var currentData = null; 
-    var historyData = [];
-    
-    var viewMode = 'regions'; 
+    var regionConfig, metaDataGlobal = {}, boundariesGeoJSON, historyData = [];
+    var currentData = null;
+    var viewMode = 'regions';
     var selectedRegionKey = null;
-    var activeCategoryFilters = new Set(); 
-    var expandedGroups = new Set(); 
+    var activeCategoryFilters = new Set();
+    var expandedGroups = new Set();
     var regionLayers = {};
     var regionsGeoLayer = null;
+    var groupColors = {};   // filled from category_config.json
+    var OTHER_COLOR = '#555555';
 
-    // --- GROUPS & COLORS ---
-    var groupColors = {
-        "Religion": "#E63946", "Archaeology": "#8D6E63", "Culture and leisure": "#FFB703", 
-        "Administration": "#F4A261", "Fortifications and military": "#606C38", 
-        "Residences and buildings": "#A53860", "Nature and landscape": "#2A9D8F", "Settlements": "#457B9D", 
-        "Infrastructure": "#7D8597", "Monuments": "#9D4EDD", "Other": "#000000"
-    };
+    var dateOpts = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+
+    function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+    function fmtDate(s) {
+        if (!s) return '--';
+        var d = new Date(s);
+        return isNaN(d) ? s : d.toLocaleString('en-GB', dateOpts);
+    }
+    function safeName(s) { return String(s).replace(/[^a-z0-9]/gi, '_').toLowerCase(); }
+    function regionMeta(key) { return (metaDataGlobal.regions && metaDataGlobal.regions[key]) || { done: 0, total: 0 }; }
+    function pctOf(m) { return m.total > 0 ? (m.done / m.total) * 100 : 0; }
 
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-    map.on('click', function() {
-        if (window.innerWidth > 700) { document.getElementById('sidebar').classList.remove('open'); }
-    });
-
-    var ts = new Date().getTime(); 
+    var ts = Date.now();
     Promise.all([
-        fetch('regions.json?v=' + ts).then(r => r.json()),
+        fetch('regions.json?v=' + STATIC_VERSION).then(r => r.json()),
         fetch('metadata.json?v=' + ts).then(r => r.json()).catch(() => ({})),
-        fetch('regions_boundaries.geojson?v=' + ts).then(r => r.json()).catch(() => null),
-        fetch('history.json?v=' + ts).then(r => r.json()).catch(() => []) 
-    ]).then(([regions, metadata, bounds, history]) => {
-        regionConfig = regions; metaDataGlobal = metadata; boundariesGeoJSON = bounds;
-        historyData = history;
+        fetch('regions_boundaries.geojson?v=' + STATIC_VERSION).then(r => r.json()).catch(() => null),
+        fetch('history.json?v=' + ts).then(r => r.json()).catch(() => []),
+        fetch('category_config.json?v=' + STATIC_VERSION).then(r => r.json()).catch(() => ({}))
+    ]).then(([regions, metadata, bounds, history, categories]) => {
+        regionConfig = regions; metaDataGlobal = metadata || {}; boundariesGeoJSON = bounds;
+        historyData = Array.isArray(history) ? history : [];
+        Object.keys(categories).forEach(g => { groupColors[g] = categories[g].color || OTHER_COLOR; });
+        groupColors['Other'] = OTHER_COLOR;
 
-        var dateOpts = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-        
-        if(metadata.global_osm_date) {
-             let d = new Date(metadata.global_osm_date);
-             document.getElementById('date-osm').innerText = !isNaN(d) ? d.toLocaleString('en-GB', dateOpts) : metadata.global_osm_date;
-        }
-        if(metadata.global_wiki_date) {
-             let d = new Date(metadata.global_wiki_date);
-             document.getElementById('date-wiki').innerText = !isNaN(d) ? d.toLocaleString('en-GB', dateOpts) : metadata.global_wiki_date;
-        }
-
+        showGlobalDates();
         renderSidebar();
         if (boundariesGeoJSON) loadRegionsShape();
     });
+
+    function showGlobalDates() {
+        document.getElementById('date-osm').innerText = fmtDate(metaDataGlobal.global_osm_date);
+        document.getElementById('date-wiki').innerText = fmtDate(metaDataGlobal.global_wiki_date);
+    }
 
     function getHeatColor(p) {
         if (p >= 90) return '#006400'; if (p >= 80) return '#228B22'; if (p >= 70) return '#32CD32';
@@ -238,190 +218,159 @@
         if (p >= 30) return '#FF8C00'; if (p >= 20) return '#FF4500'; if (p >= 10) return '#FF0000';
         return '#8B0000';
     }
-    
+
+    // Change in linked items compared with about TREND_DAYS days ago (from history.json)
+    function getTrend(key) {
+        if (!historyData.length) return null;
+        var cutoff = new Date(Date.now() - TREND_DAYS * 86400000).toISOString().slice(0, 10);
+        var past = historyData.filter(h => h.date <= cutoff && h.data && h.data[key]);
+        var ref = past.length ? past[past.length - 1] : historyData.find(h => h.data && h.data[key]);
+        if (!ref) return null;
+        return { delta: regionMeta(key).done - ref.data[key].done, since: ref.date };
+    }
+    function trendHtml(key) {
+        var t = getTrend(key);
+        if (!t || t.delta === 0) return '';
+        var cls = t.delta > 0 ? 'trend-up' : 'trend-down';
+        return `<span class="trend ${cls}" title="Change in linked items since ${esc(t.since)}">${t.delta > 0 ? '▲ +' : '▼ '}${t.delta}</span>`;
+    }
+
     function toggleGroupExpand(group, event) {
         if (event) event.stopPropagation();
-        if (expandedGroups.has(group)) expandedGroups.delete(group);
-        else expandedGroups.add(group);
+        if (expandedGroups.has(group)) expandedGroups.delete(group); else expandedGroups.add(group);
         renderSidebar();
     }
-
-    function toggleGroupSelection(group, availableSubcats) {
-        var allSelected = availableSubcats.every(s => activeCategoryFilters.has(s));
-        if (allSelected) availableSubcats.forEach(s => activeCategoryFilters.delete(s));
-        else availableSubcats.forEach(s => activeCategoryFilters.add(s));
-        renderSidebar();
-        renderMarkers(currentData);
-    }
-
-    function toggleSubgroupSelection(subgroup, types) {
+    function toggleSelection(types) {
         var allSelected = types.every(t => activeCategoryFilters.has(t));
-        if (allSelected) {
-            types.forEach(t => activeCategoryFilters.delete(t));
-        } else {
-            types.forEach(t => activeCategoryFilters.add(t));
-        }
-        renderSidebar();
-        renderMarkers(currentData);
-    }
-
-    function toggleCategoryFilter(subcat) {
-        if (activeCategoryFilters.has(subcat)) activeCategoryFilters.delete(subcat);
-        else activeCategoryFilters.add(subcat);
+        types.forEach(t => allSelected ? activeCategoryFilters.delete(t) : activeCategoryFilters.add(t));
         renderSidebar();
         renderMarkers(currentData);
     }
 
     function renderSidebar() {
-        var sb = document.getElementById('sidebar-content'); sb.innerHTML = "";
-        
-        if (!currentData || viewMode === 'regions') { 
-            // SHOW REGIONS LIST
-            var sortedKeys = Object.keys(regionConfig).sort((a,b) => {
-                var metaA = (metaDataGlobal.regions && metaDataGlobal.regions[a]) || {done:0, total:1};
-                var metaB = (metaDataGlobal.regions && metaDataGlobal.regions[b]) || {done:0, total:1};
-                return (metaB.done / metaB.total) - (metaA.done / metaA.total);
-            });
-            sortedKeys.forEach(key => {
-                var meta = (metaDataGlobal.regions && metaDataGlobal.regions[key]) || {done:0,total:1};
-                var pct = Math.round((meta.done / meta.total) * 100);
-                var color = getHeatColor(pct);
-                var trendHtml = "";
+        var sb = document.getElementById('sidebar-content'); sb.innerHTML = '';
+
+        if (viewMode === 'regions') {
+            var keys = Object.keys(regionConfig);
+            var sumDone = 0, sumTotal = 0;
+            keys.forEach(k => { var m = regionMeta(k); sumDone += m.done; sumTotal += m.total; });
+            var tot = document.createElement('div');
+            tot.className = 'list-total';
+            tot.innerHTML = `<span>Bulgaria</span><span><b>${Math.round(sumTotal ? sumDone / sumTotal * 100 : 0)}%</b> <small>(${sumDone.toLocaleString('en-GB')}/${sumTotal.toLocaleString('en-GB')})</small></span>`;
+            sb.appendChild(tot);
+
+            keys.sort((a, b) => pctOf(regionMeta(b)) - pctOf(regionMeta(a))).forEach(key => {
+                var meta = regionMeta(key);
+                var pct = Math.round(pctOf(meta));
                 var div = document.createElement('div');
-                div.className = "list-item"; 
-                div.innerHTML = `<span>${regionConfig[key].name}</span><div>${trendHtml}<span style="color:${color};font-weight:bold">${pct}%</span></div>`;
-                div.onclick = () => { changeRegion(key); };
+                div.className = 'list-item';
+                div.title = `${meta.done} of ${meta.total} linked`;
+                div.innerHTML = `<span>${esc(regionConfig[key].name)}</span><div style="white-space:nowrap">${trendHtml(key)}<span style="color:${getHeatColor(pct)};font-weight:bold">${pct}%</span></div>`;
+                div.onclick = () => changeRegion(key);
                 sb.appendChild(div);
             });
-        } 
-        else {
-            var hierarchy = {};
-            var showM = document.getElementById('chkMissing').checked;
-            var showD = document.getElementById('chkDone').checked;
-
-            currentData.features.forEach(f => {
-                var status = f.properties.status;
-                // Nur zählen, wenn der Status zur Checkbox-Auswahl passt
-                if ((status === 'missing' && showM) || (status === 'done' && showD)) {
-                    var g = f.properties.group || 'Altro';
-                    var sg = f.properties.subgroup || 'Altro';
-                    var t = f.properties.subcategory || 'Altro';
-                    
-                    if (!hierarchy[g]) hierarchy[g] = {};
-                    if (!hierarchy[g][sg]) hierarchy[g][sg] = {};
-                    if (!hierarchy[g][sg][t]) hierarchy[g][sg][t] = 0;
-                    hierarchy[g][sg][t]++;
-                }
-            });
-
-            Object.keys(groupColors).forEach(group => {
-                if (!hierarchy[group]) return; 
-                
-                // 1. Gather all types in this group for selection logic
-                var allTypesInGroup = [];
-                var groupTotal = 0;
-                Object.values(hierarchy[group]).forEach(sg => {
-                    Object.values(sg).forEach(cnt => groupTotal += cnt);
-                    Object.keys(sg).forEach(t => allTypesInGroup.push(t));
-                });
-
-                // 2. Check Selection State
-                var selectedCount = allTypesInGroup.filter(s => activeCategoryFilters.has(s)).length;
-                var selectionClass = "";
-                if (selectedCount === allTypesInGroup.length && allTypesInGroup.length > 0) selectionClass = "fully-selected";
-                else if (selectedCount > 0) selectionClass = "partially-selected";
-
-                var isExpanded = expandedGroups.has(group);
-                var color = groupColors[group];
-                
-                // HEADER LEVEL 1
-                var headerDiv = document.createElement('div');
-                headerDiv.className = `group-header ${selectionClass}`; 
-                
-                var labelDiv = document.createElement('div');
-                labelDiv.className = "group-label";
-                labelDiv.innerHTML = `<span class="cat-dot" style="background:${color}"></span>${group} <span style="font-weight:normal; font-size:11px; margin-left:5px; opacity:0.8">(${groupTotal})</span>`;
-                labelDiv.onclick = () => toggleGroupSelection(group, allTypesInGroup); 
-                
-                var toggleDiv = document.createElement('div');
-                toggleDiv.className = "group-toggle-icon";
-                toggleDiv.innerText = isExpanded ? '▼' : '▶';
-                toggleDiv.onclick = (e) => toggleGroupExpand(group, e);
-
-                headerDiv.appendChild(labelDiv);
-                headerDiv.appendChild(toggleDiv);
-                sb.appendChild(headerDiv);
-
-                var content = document.createElement('div');
-                content.className = "group-content" + (isExpanded ? " expanded" : "");
-                
-                // LEVEL 2
-                Object.keys(hierarchy[group]).sort().forEach(subgroup => {
-                    var typesInSubgroup = Object.keys(hierarchy[group][subgroup]);
-                    
-                    if(subgroup !== "Altro" && subgroup !== group) {
-                        // Check if all types in subgroup are selected
-                        var subSelectedCount = typesInSubgroup.filter(t => activeCategoryFilters.has(t)).length;
-                        var subClass = (subSelectedCount === typesInSubgroup.length) ? "fully-selected" : "";
-
-                        var sgHeader = document.createElement('div');
-                        sgHeader.className = `subgroup-header ${subClass}`;
-                        
-                        var sgLabel = document.createElement('div');
-                        sgLabel.className = "subgroup-label";
-                        sgLabel.innerText = subgroup;
-                        sgLabel.onclick = () => toggleSubgroupSelection(subgroup, typesInSubgroup);
-                        
-                        var sgDlBtn = document.createElement('button');
-                        sgDlBtn.className = "subgroup-dl-btn";
-                        sgDlBtn.innerHTML = "⬇";
-                        sgDlBtn.title = "Download " + subgroup;
-                        sgDlBtn.onclick = (e) => { e.stopPropagation(); downloadSubgroup(subgroup); };
-
-                        sgHeader.appendChild(sgLabel);
-                        sgHeader.appendChild(sgDlBtn);
-                        content.appendChild(sgHeader);
-                    }
-
-                    // LEVEL 3
-                    typesInSubgroup.sort((a,b) => hierarchy[group][subgroup][b] - hierarchy[group][subgroup][a]).forEach(type => {
-                        var count = hierarchy[group][subgroup][type];
-                        var item = document.createElement('div');
-                        item.className = "subcat-item" + (activeCategoryFilters.has(type) ? " selected" : "");
-                        
-                        var labelPart = document.createElement('div');
-                        labelPart.className = "subcat-label";
-                        labelPart.innerHTML = `<span>${type}</span> <span>(${count})</span>`;
-                        labelPart.onclick = () => toggleCategoryFilter(type);
-                        
-                        var btnPart = document.createElement('button');
-                        btnPart.className = "subcat-dl-btn";
-                        btnPart.innerHTML = "⬇";
-                        btnPart.title = "Download JSON";
-                        btnPart.onclick = (e) => { e.stopPropagation(); downloadSubcategory(type); };
-
-                        item.appendChild(labelPart);
-                        item.appendChild(btnPart);
-                        content.appendChild(item);
-                    });
-                });
-                sb.appendChild(content);
-            });
+            return;
         }
+        if (!currentData) return;   // region data still loading
+
+        var hierarchy = {};
+        var showM = document.getElementById('chkMissing').checked;
+        var showD = document.getElementById('chkDone').checked;
+        currentData.features.forEach(f => {
+            var status = f.properties.status;
+            if ((status === 'missing' && showM) || (status === 'done' && showD)) {
+                var g = f.properties.group || 'Other';
+                var sg = f.properties.subgroup || 'Other';
+                var t = f.properties.subcategory || 'Other';
+                hierarchy[g] = hierarchy[g] || {};
+                hierarchy[g][sg] = hierarchy[g][sg] || {};
+                hierarchy[g][sg][t] = (hierarchy[g][sg][t] || 0) + 1;
+            }
+        });
+
+        // groups in config order, then any unknown group, "Other" last
+        var groupOrder = Object.keys(groupColors).filter(g => g !== 'Other');
+        Object.keys(hierarchy).forEach(g => { if (!groupOrder.includes(g) && g !== 'Other') groupOrder.push(g); });
+        groupOrder.push('Other');
+
+        groupOrder.forEach(group => {
+            if (!hierarchy[group]) return;
+            var allTypesInGroup = [], groupTotal = 0;
+            Object.values(hierarchy[group]).forEach(sg => {
+                Object.keys(sg).forEach(t => { allTypesInGroup.push(t); groupTotal += sg[t]; });
+            });
+            var selectedCount = allTypesInGroup.filter(s => activeCategoryFilters.has(s)).length;
+            var selectionClass = selectedCount === allTypesInGroup.length ? 'fully-selected' : (selectedCount > 0 ? 'partially-selected' : '');
+            var isExpanded = expandedGroups.has(group);
+
+            var headerDiv = document.createElement('div');
+            headerDiv.className = `group-header ${selectionClass}`;
+            var labelDiv = document.createElement('div');
+            labelDiv.className = 'group-label';
+            labelDiv.innerHTML = `<span class="cat-dot" style="background:${groupColors[group] || OTHER_COLOR}"></span>${esc(group)} <span style="font-weight:normal; font-size:11px; margin-left:5px; opacity:0.8">(${groupTotal})</span>`;
+            labelDiv.onclick = () => toggleSelection(allTypesInGroup);
+            var toggleDiv = document.createElement('div');
+            toggleDiv.className = 'group-toggle-icon';
+            toggleDiv.innerText = isExpanded ? '▼' : '▶';
+            toggleDiv.onclick = (e) => toggleGroupExpand(group, e);
+            headerDiv.appendChild(labelDiv);
+            headerDiv.appendChild(toggleDiv);
+            sb.appendChild(headerDiv);
+
+            var content = document.createElement('div');
+            content.className = 'group-content' + (isExpanded ? ' expanded' : '');
+
+            Object.keys(hierarchy[group]).sort().forEach(subgroup => {
+                var counts = hierarchy[group][subgroup];
+                var typesInSubgroup = Object.keys(counts);
+
+                if (subgroup !== 'Other' && subgroup !== group) {
+                    var subSelected = typesInSubgroup.every(t => activeCategoryFilters.has(t));
+                    var sgHeader = document.createElement('div');
+                    sgHeader.className = 'subgroup-header' + (subSelected ? ' fully-selected' : '');
+                    var sgLabel = document.createElement('div');
+                    sgLabel.className = 'subgroup-label';
+                    sgLabel.innerText = subgroup;
+                    sgLabel.onclick = () => toggleSelection(typesInSubgroup);
+                    var sgDlBtn = document.createElement('button');
+                    sgDlBtn.className = 'subgroup-dl-btn';
+                    sgDlBtn.innerHTML = '⬇';
+                    sgDlBtn.title = 'Download missing: ' + subgroup;
+                    sgDlBtn.onclick = (e) => { e.stopPropagation(); downloadFiltered(f => f.properties.subgroup === subgroup, subgroup); };
+                    sgHeader.appendChild(sgLabel);
+                    sgHeader.appendChild(sgDlBtn);
+                    content.appendChild(sgHeader);
+                }
+
+                typesInSubgroup.sort((a, b) => counts[b] - counts[a]).forEach(type => {
+                    var item = document.createElement('div');
+                    item.className = 'subcat-item' + (activeCategoryFilters.has(type) ? ' selected' : '');
+                    var labelPart = document.createElement('div');
+                    labelPart.className = 'subcat-label';
+                    labelPart.innerHTML = `<span>${esc(type)}</span> <span>(${counts[type]})</span>`;
+                    labelPart.onclick = () => toggleSelection([type]);
+                    var btnPart = document.createElement('button');
+                    btnPart.className = 'subcat-dl-btn';
+                    btnPart.innerHTML = '⬇';
+                    btnPart.title = 'Download missing: ' + type;
+                    btnPart.onclick = (e) => { e.stopPropagation(); downloadFiltered(f => f.properties.subcategory === type, type); };
+                    item.appendChild(labelPart);
+                    item.appendChild(btnPart);
+                    content.appendChild(item);
+                });
+            });
+            sb.appendChild(content);
+        });
     }
 
     function getKeyFromFeature(f) {
-        var id = String(f.id || f.properties.id || f.properties['@id'] || "").replace("relation/", "");
-        var found = Object.keys(regionConfig).find(k => String(parseInt(regionConfig[k].osm) - 3600000000) === id);
-        if (found) return found;
-        var name = f.properties.name || f.properties['name:en'] || "";
-        return null;
+        var id = String(f.id || f.properties.id || f.properties['@id'] || '').replace('relation/', '');
+        return Object.keys(regionConfig).find(k => String(parseInt(regionConfig[k].osm) - 3600000000) === id) || null;
     }
 
     function getRegionStyleForFeature(f) {
-        var k = getKeyFromFeature(f);
-        var m = (k && metaDataGlobal.regions && metaDataGlobal.regions[k]) || {done:0, total:1};
-        var color = (m.total > 0) ? getHeatColor((m.done / m.total) * 100) : "#3498db";
+        var m = regionMeta(getKeyFromFeature(f));
+        var color = m.total > 0 ? getHeatColor(pctOf(m)) : '#3498db';
         return { color: color, weight: 1.5, fillOpacity: 0.6 };
     }
 
@@ -429,163 +378,161 @@
         regionLayers = {};
         regionsGeoLayer = L.geoJSON(boundariesGeoJSON, {
             pane: 'regionsPane',
-            filter: function(feature) {
-                return feature.geometry.type !== 'Point';
-    },
-    style: getRegionStyleForFeature,
-            onEachFeature: (f, l) => { 
-                var k = getKeyFromFeature(f); 
-                if (k) { 
+            filter: f => f.geometry && f.geometry.type !== 'Point',   // skip admin_centre/label points
+            style: getRegionStyleForFeature,
+            onEachFeature: (f, l) => {
+                var k = getKeyFromFeature(f);
+                if (k) {
                     regionLayers[k] = l;
-                    l.on('click', (e) => { 
-                        if (window.innerWidth <= 700) { L.DomEvent.stopPropagation(e); return; }
+                    l.on('click', (e) => {
                         L.DomEvent.stopPropagation(e);
-                        changeRegion(k); 
-                    }); 
-                    l.bindTooltip(regionConfig[k].name, {direction: "center", className: "region-label"}); 
+                        if (window.innerWidth <= 700) return;
+                        if (viewMode === 'regions') changeRegion(k);
+                    });
+                    var m = regionMeta(k);
+                    l.bindTooltip(`${esc(regionConfig[k].name)}<br><b>${Math.round(pctOf(m))}%</b> (${m.done}/${m.total})`, { direction: 'center', className: 'region-label' });
                 }
-
                 l.on('mouseover', () => {
                     if (viewMode !== 'regions') return;
-                    l.setStyle({ color: "#4aa3ff", weight: 3 });
+                    l.setStyle({ color: '#4aa3ff', weight: 3 });
                     l.bringToFront();
                 });
-
                 l.on('mouseout', () => {
                     if (viewMode !== 'regions') return;
-                    if (regionsGeoLayer) regionsGeoLayer.resetStyle(l);
+                    regionsGeoLayer.resetStyle(l);
                 });
             }
         }).addTo(layers.regions);
         map.addLayer(layers.regions);
     }
 
+    function showOverview() {
+        viewMode = 'regions';
+        selectedRegionKey = null;
+        currentData = null;
+        activeCategoryFilters.clear();
+        expandedGroups.clear();
+        layers.missing.clearLayers(); layers.done.clearLayers(); layers.activeBorder.clearLayers();
+        if (regionsGeoLayer) regionsGeoLayer.eachLayer(l => regionsGeoLayer.resetStyle(l));
+        document.body.classList.remove('region-loaded');
+        document.getElementById('map-placeholder').style.display = '';
+        document.getElementById('cat-toggle-btn').style.display = 'none';
+        document.getElementById('controls').style.display = 'none';
+        document.getElementById('loading').style.display = 'none';
+        showGlobalDates();
+        renderSidebar();
+        map.closePopup();
+        map.setView([42.7, 25.5], 7);
+    }
+
     function changeRegion(key) {
         selectedRegionKey = key;
-        viewMode = 'categories'; 
-        activeCategoryFilters.clear(); 
+        viewMode = 'categories';
+        currentData = null;
+        activeCategoryFilters.clear();
         expandedGroups.clear();
-        
+
         document.body.classList.add('region-loaded');
         document.getElementById('map-placeholder').style.display = 'none';
-        document.getElementById('cat-toggle-btn').innerText = "Back to overview";
-        document.getElementById('cat-toggle-btn').style.display = 'block'; 
+        document.getElementById('cat-toggle-btn').style.display = 'block';
         document.getElementById('controls').style.display = 'flex';
+        if (window.innerWidth <= 700) document.getElementById('sidebar').classList.add('open');
 
-        if(window.innerWidth <= 700) document.getElementById('sidebar').classList.add('open');
+        var m = regionMeta(key);
+        document.getElementById('date-osm').innerText = fmtDate(m.osm);
+        document.getElementById('date-wiki').innerText = fmtDate(m.wiki);
 
+        // selected region: blue border, no fill
+        if (regionsGeoLayer) regionsGeoLayer.eachLayer(l => regionsGeoLayer.resetStyle(l));
         layers.activeBorder.clearLayers();
         if (regionLayers[key]) {
-            regionLayers[key].setStyle({ color: "#4aa3ff", weight: 3, fillOpacity: 0, fillColor: "transparent" });
+            regionLayers[key].setStyle({ color: '#4aa3ff', weight: 3, fillOpacity: 0 });
             regionLayers[key].bringToFront();
-        }
-
-        var target = boundariesGeoJSON.features.find(f => getKeyFromFeature(f) === key);
-        if(target) {
-            var b = L.geoJSON(target, { pane: 'activeBorderPane', style: { color: "#4aa3ff", weight: 3, fillOpacity: 0, fillColor: "transparent" } }).addTo(layers.activeBorder);
+            var b = L.geoJSON(regionLayers[key].feature, { pane: 'activeBorderPane', interactive: false, style: { color: '#4aa3ff', weight: 3, fillOpacity: 0 } }).addTo(layers.activeBorder);
+            map.addLayer(layers.activeBorder);
             map.fitBounds(b.getBounds());
         }
-        
+
+        layers.missing.clearLayers(); layers.done.clearLayers();
+        document.getElementById('count-missing').innerText = '';
+        document.getElementById('count-done').innerText = '';
         document.getElementById('loading').style.display = 'block';
         document.getElementById('btnDownload').style.display = 'none';
-        
-        fetch(`data_overpass/data_${key}.geojson?v=` + new Date().getTime()).then(res => res.json()).then(data => {
-            currentData = data; 
+        renderSidebar();
+
+        fetch(`data_overpass/data_${key}.geojson?v=` + encodeURIComponent(m.wiki || ts)).then(res => res.json()).then(data => {
+            if (selectedRegionKey !== key) return;   // user switched region meanwhile
+            currentData = data;
             renderSidebar();
             renderMarkers(data);
+        }).catch(() => {
+            if (selectedRegionKey !== key) return;
+            document.getElementById('sidebar-content').innerHTML = '<div class="list-item">Could not load data for this province.</div>';
+        }).finally(() => {
             document.getElementById('loading').style.display = 'none';
         });
     }
 
     function renderMarkers(data) {
         layers.missing.clearLayers(); layers.done.clearLayers();
+        if (!data) return;
         var cM = 0, cD = 0;
         var hasSelection = activeCategoryFilters.size > 0;
 
         data.features.forEach(f => {
-            var isD = f.properties.status === 'done';
-            var subcat = f.properties.subcategory || 'Altro';
-            var group = f.properties.group || 'Altro';
-
-            if (hasSelection && !activeCategoryFilters.has(subcat)) return;
-
-            if(isD) cD++; else cM++;
-
             var p = f.properties;
-            var pop = `<div style="text-align:center"><b>${p.name}</b><br><small>${p.wikidata}</small>
-            <div class="logo-row"><a href="https://www.wikidata.org/wiki/${p.wikidata}" target="_blank" class="logo-link"><img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Wikidata-logo.svg"></a>`;
-            if(p.osm_id) pop += `<a href="https://www.openstreetmap.org/${p.osm_id}" target="_blank" class="logo-link"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Openstreetmap_logo.svg"></a>`;
+            var isD = p.status === 'done';
+            if (hasSelection && !activeCategoryFilters.has(p.subcategory || 'Other')) return;
+            if (isD) cD++; else cM++;
+
+            var lat = f.geometry.coordinates[1], lon = f.geometry.coordinates[0];
+            var pop = `<div style="text-align:center"><b>${esc(p.name)}</b><br><small>${esc(p.wikidata)} · ${esc(p.subcategory || 'Other')}</small>
+            <div class="logo-row"><a href="https://www.wikidata.org/wiki/${encodeURIComponent(p.wikidata)}" target="_blank" rel="noopener" class="logo-link" title="Wikidata"><img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Wikidata-logo.svg" alt="Wikidata"></a>`;
+            if (p.osm_id) pop += `<a href="https://www.openstreetmap.org/${esc(p.osm_id)}" target="_blank" rel="noopener" class="logo-link" title="OpenStreetMap"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Openstreetmap_logo.svg" alt="OSM"></a>`;
+            else pop += `<a href="https://www.openstreetmap.org/#map=18/${lat}/${lon}" target="_blank" rel="noopener" style="font-size:11px">Open location in OSM</a>`;
             pop += `</div></div>`;
 
-            var color = isD ? "#2ecc71" : (groupColors[group] || "#000000");
-            
-            L.circleMarker([f.geometry.coordinates[1], f.geometry.coordinates[0]], { 
-                pane: 'markersPane', radius: 4.5, fillColor: color, color: "#fff", weight: 1, fillOpacity: 0.8 
+            var color = isD ? '#2ecc71' : (groupColors[p.group] || OTHER_COLOR);
+            L.circleMarker([lat, lon], {
+                pane: 'markersPane', radius: 4.5, fillColor: color, color: '#fff', weight: 1, fillOpacity: 0.8
             }).bindPopup(pop).addTo(isD ? layers.done : layers.missing);
         });
 
         document.getElementById('count-missing').innerText = `(${cM})`;
         document.getElementById('count-done').innerText = `(${cD})`;
-        
-        if (cM > 0) document.getElementById('btnDownload').style.display = 'block';
-        else document.getElementById('btnDownload').style.display = 'none';
-        
-        if(document.getElementById('chkMissing').checked) map.addLayer(layers.missing);
-        if(document.getElementById('chkDone').checked) map.addLayer(layers.done);
+        document.getElementById('btnDownload').style.display = cM > 0 ? 'block' : 'none';
+        if (document.getElementById('chkMissing').checked) map.addLayer(layers.missing);
+        if (document.getElementById('chkDone').checked) map.addLayer(layers.done);
+    }
+
+    function downloadFiltered(predicate, label) {
+        if (!currentData) return;
+        var feats = currentData.features.filter(f => f.properties.status === 'missing' && predicate(f));
+        if (!feats.length) { alert('Nothing to download for this selection.'); return; }
+        downloadJSON(feats, `missing_${safeName(selectedRegionKey)}_${safeName(label)}.geojson`);
     }
 
     function downloadCurrentMissing() {
-        if (!currentMissingFeatures.length && !currentData) return;
-        var feats = [];
         var hasSelection = activeCategoryFilters.size > 0;
-        currentData.features.forEach(f => {
-            if (f.properties.status === 'missing') {
-                if (!hasSelection || activeCategoryFilters.has(f.properties.subcategory)) feats.push(f);
-            }
-        });
-        
-        var regionName = regionConfig[selectedRegionKey].name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        var suffix = hasSelection ? "_selection" : "_all";
-        downloadJSON(feats, `missing_${regionName}${suffix}.geojson`);
-    }
-
-    function downloadSubcategory(cat) {
-        if (!currentData) return;
-        var feats = currentData.features.filter(f => f.properties.status === 'missing' && f.properties.subcategory === cat);
-        if (feats.length === 0) { alert("Nothing to download for this group."); return; }
-        
-        var regionName = regionConfig[selectedRegionKey].name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        var catName = cat.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        downloadJSON(feats, `missing_${regionName}_${catName}.geojson`);
-    }
-
-    // NEW: Download whole subgroup
-    function downloadSubgroup(subgroup) {
-        if (!currentData) return;
-        var feats = currentData.features.filter(f => f.properties.status === 'missing' && f.properties.subgroup === subgroup);
-        if (feats.length === 0) { alert("Nessun elemento da scaricare per questo gruppo."); return; }
-        
-        var regionName = regionConfig[selectedRegionKey].name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        var sgName = subgroup.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        downloadJSON(feats, `missing_${regionName}_${sgName}.geojson`);
+        downloadFiltered(f => !hasSelection || activeCategoryFilters.has(f.properties.subcategory), hasSelection ? 'selection' : 'all');
     }
 
     function downloadJSON(features, filename) {
-        var blob = new Blob([JSON.stringify({ "type": "FeatureCollection", "features": features })], {type: "application/json"});
-        var a = document.createElement("a");
+        var blob = new Blob([JSON.stringify({ type: 'FeatureCollection', features: features })], { type: 'application/geo+json' });
+        var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = filename;
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     }
 
-    function toggleLayer(t, c) { 
-        if(c) map.addLayer(layers[t]); else map.removeLayer(layers[t]); 
-        renderSidebar(); 
+    function toggleLayer(t, c) {
+        if (c) map.addLayer(layers[t]); else map.removeLayer(layers[t]);
+        renderSidebar();
     }
-    
-    function toggleCheckbox(id) {
+
+    function toggleCheckbox(event, id) {
         var c = document.getElementById(id);
-    
         if (event.target !== c) {
             c.checked = !c.checked;
             c.dispatchEvent(new Event('change'));
