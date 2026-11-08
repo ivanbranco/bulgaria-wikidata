@@ -3,20 +3,29 @@
     "color": "#F4A261",
     "subgroups": {
       "Education": {
-        "School": ["Q3914"],
+        "School": ["Q3914", "Q1244442"],
         "Kindergarten": ["Q126807"],
         "Primary school": ["Q9842"],
-        "Secondary school": ["Q149566", "Q57775518", "Q9826", "Q3803834", "Q1981640", "Q3831968", "Q3803808"],
+        "Secondary school": ["Q149566", "Q57775518", "Q9826", "Q3803834", "Q1981640", "Q3831968", "Q3803808", "Q159334"],
         "Conservatory": ["Q184644", "Q1021290"],
         "Educational complex": ["Q20860083", "Q2385804"],
+        "University": ["Q3918", "Q38723", "Q189004", "Q180958"],
+        "Research institute": ["Q31855", "Q1664720"],
         "Academic institution": ["Q4671277", "Q162633"]
       },
       "Public offices": {
         "Town hall": ["Q25550691", "Q15303838"],
         "Courthouse": ["Q1137809"],
         "Post office": ["Q35054"],
-        "Government agency": ["Q1188075"],
+        "Government agency": ["Q1188075", "Q327333", "Q136410955", "Q12279293"],
         "Prison": ["Q40357"]
+      },
+      "Administrative divisions": {
+        "Province": ["Q209824"],
+        "Municipality": ["Q1906268"],
+        "Municipal district": ["Q7553685"],
+        "Kmetstvo": ["Q4224624"],
+        "Administrative entity": ["Q56061", "Q136405773"]
       }
     }
   },
@@ -33,13 +42,14 @@
         "Institutional library": ["Q124750618"]
       },
       "Museums": {
-        "Museum": ["Q33506", "Q614316"],
+        "Museum": ["Q33506", "Q614316", "Q17431399"],
         "Public museum": ["Q124830213", "Q124830411"],
         "Art museum": ["Q207694", "Q108860593"],
         "Art gallery": ["Q740437"],
         "Archaeological museum": ["Q3329412"],
         "History museum": ["Q16735822"],
         "Ethnographic museum": ["Q12104174"],
+        "Natural history museum": ["Q1970365"],
         "Educational museum": ["Q94701740"],
         "Ecomuseum": ["Q94701721", "Q1798450"],
         "House museum": ["Q2087181"]
@@ -47,20 +57,23 @@
       "Archives": {
         "Archive": ["Q166118"],
         "Municipal archive": ["Q604177"],
-        "State archive": ["Q17620767"],
+        "State archive": ["Q17620767", "Q52341833"],
+        "National archive": ["Q2122214"],
         "Academic archive": ["Q27032435"],
         "Historical archive": ["Q3621673"]
       },
       "Entertainment": {
-        "Theatre": ["Q24354"],
+        "Theatre": ["Q24354", "Q2416217", "Q11812394", "Q3982337"],
+        "Open-air theatre": ["Q11183017"],
         "Opera house": ["Q153562"],
-        "Cinema": ["Q41253"],
+        "Cinema": ["Q41253", "Q1454553"],
         "Casino": ["Q133215"],
-        "Cultural centre": ["Q1329623"],
-        "Chitalishte": ["Q1638962"]
+        "Cultural centre": ["Q1329623", "Q5061188"],
+        "Chitalishte": ["Q1638962"],
+        "Zoo": ["Q43501"]
       },
       "Sport": {
-        "Sports venue": ["Q1076486", "Q1154710", "Q483110", "Q3958661"]
+        "Sports venue": ["Q1076486", "Q1154710", "Q483110", "Q3958661", "Q641226"]
       }
     }
   },
@@ -68,14 +81,17 @@
     "color": "#E63946",
     "subgroups": {
       "Places of worship": {
-        "Church": ["Q16970", "Q1088552", "Q2031836"],
+        "Church": ["Q16970", "Q1088552", "Q2031836", "Q33232008"],
+        "Cathedral": ["Q56242225", "Q56242215"],
         "Parish church": ["Q55876909", "Q317557"],
         "Minor basilica": ["Q120560"],
         "Chapel": ["Q108325"],
         "Cemetery chapel": ["Q1457501"],
         "Oratory": ["Q580499", "Q3884394"],
-        "Sanctuary": ["Q697295"],
+        "Sanctuary": ["Q697295", "Q29553"],
         "Mosque": ["Q32815"],
+        "Synagogue": ["Q34627"],
+        "Tekke": ["Q833913"],
         "Shrine": ["Q44539"],
         "Wayside shrine": ["Q3395121"],
         "Stations of the Cross": ["Q231685", "Q1399033"],
@@ -90,10 +106,11 @@
         "Hermitage": ["Q513550"]
       },
       "Cemeteries": {
-        "Cemetery": ["Q39614"],
+        "Cemetery": ["Q39614", "Q846659"],
         "War cemetery": ["Q1241568", "Q1707610"],
         "Necropolis": ["Q200141"],
-        "Tomb": ["Q381885"],
+        "Tomb": ["Q381885", "Q173387"],
+        "Mausoleum": ["Q162875"],
         "Funerary monument": ["Q56055312"]
       },
       "Religious administration": {
@@ -105,17 +122,20 @@
     "color": "#457B9D",
     "subgroups": {
       "Places": {
+        "Village": ["Q532", "Q85842219", "Q15630849"],
+        "Town": ["Q3957", "Q89487741", "Q902814"],
+        "City": ["Q1549591"],
         "Locality": ["Q3257686"],
-        "Village": ["Q532", "Q85842219"],
         "Hamlet": ["Q5084"],
-        "Human settlement": ["Q486972"],
+        "Human settlement": ["Q486972", "Q127388602"],
         "Populated place": ["Q3835961"],
-        "Town": ["Q3957"],
-        "City": ["Q1549591"]
+        "Former settlement": ["Q21507948", "Q22674925"],
+        "Resort": ["Q1021711", "Q130003"]
       },
       "Urban areas": {
         "Historic centre": ["Q676050"],
-        "Neighbourhood": ["Q123705"],
+        "Neighbourhood": ["Q123705", "Q2983893", "Q66467322"],
+        "Industrial area": ["Q329683"],
         "Ghetto": ["Q152018"],
         "Square": ["Q174782"],
         "Cathedral square": ["Q131542697"]
@@ -151,10 +171,15 @@
       "Water": {
         "Lake": ["Q23397", "Q4735538", "Q5926864"],
         "Reservoir": ["Q131681", "Q3215290"],
+        "Dam": ["Q12323"],
         "River": ["Q4022", "Q63565252", "Q1437299", "Q47521"],
         "Spring": ["Q124714"],
         "Waterfall": ["Q34038"],
-        "Canal": ["Q12284"]
+        "Canal": ["Q12284"],
+        "Wetland": ["Q30198"],
+        "Lagoon": ["Q187223"],
+        "Well": ["Q43483"],
+        "Drinking fountain (cheshma)": ["Q656656", "Q1630622"]
       },
       "Sea and coast": {
         "Beach": ["Q40080"],
@@ -166,10 +191,15 @@
       "Mountains": {
         "Hill": ["Q54050"],
         "Mountain": ["Q8502", "Q740445", "Q207326", "Q46831", "Q3958626", "Q2624046"],
+        "Upland": ["Q55075651", "Q878223"],
+        "Plateau": ["Q75520"],
         "Valley": ["Q39816"],
+        "Gorge": ["Q3699460", "Q2042028", "Q150784"],
         "Mountain pass": ["Q2231510", "Q133056"],
         "Saddle": ["Q10862618"],
         "Gap": ["Q16887036"],
+        "Cirque": ["Q184368"],
+        "Rock formation": ["Q631305"],
         "Cave": ["Q35509"],
         "Glacier": ["Q35666"],
         "Via ferrata": ["Q648116"]
@@ -179,8 +209,14 @@
         "Urban park": ["Q22746"],
         "Garden": ["Q1107656"],
         "Botanical garden": ["Q167346"],
-        "Monumental tree": ["Q811534"],
-        "Protected area": ["Q473972", "Q15069452", "Q3936950", "Q179049", "Q175208"]
+        "Monumental tree": ["Q811534"]
+      },
+      "Protected areas": {
+        "Protected area": ["Q473972", "Q15069452", "Q3936950", "Q179049", "Q175208", "Q12280397"],
+        "Protected site": ["Q14545639"],
+        "Natural monument": ["Q23790"],
+        "Nature reserve": ["Q24574428"],
+        "Nature park": ["Q20893000"]
       }
     }
   },
@@ -197,13 +233,16 @@
         "Hotel": ["Q27686"],
         "Guest house": ["Q2460422"],
         "Mountain hut": ["Q182676"],
-        "Bivouac": ["Q20743510"],
+        "Shelter": ["Q20743510", "Q989946"],
+        "Campsite": ["Q27108230"],
         "Inn": ["Q256020"]
       },
       "Other structures": {
-        "Building": ["Q41176"],
+        "Building": ["Q41176", "Q9332842", "Q1021645"],
         "Building complex": ["Q1497375"],
         "Architectural structure": ["Q811979"],
+        "Clock tower": ["Q853854"],
+        "Bathhouse": ["Q28077"],
         "Animal shelter": ["Q1411287"],
         "Outbuilding": ["Q3044808"]
       }
@@ -216,9 +255,10 @@
         "Railway station": ["Q55488"],
         "Railway halt": ["Q55678"],
         "Disused station": ["Q65464941"],
-        "Metro station": ["Q928830"],
+        "Metro station": ["Q928830", "Q124416148"],
         "Underground station": ["Q22808403"],
         "Tram stop": ["Q2175765"],
+        "Bus station": ["Q494829"],
         "Railway line": ["Q728937"],
         "Airport": ["Q1248784", "Q695850"],
         "Aerodrome": ["Q94993988"],
@@ -227,24 +267,32 @@
         "Tunnel": ["Q44377", "Q2354973"],
         "Street": ["Q79007", "Q34442"],
         "Boulevard": ["Q54114"],
-        "Bridge": ["Q12280", "Q537127"],
+        "Bridge": ["Q12280", "Q537127", "Q1068842", "Q25297630", "Q1425560"],
         "Viaduct": ["Q181348"],
         "Lighthouse": ["Q39715"],
         "Portico": ["Q185600"]
       },
       "Industry and technology": {
         "Industrial building": ["Q1662011"],
+        "Factory": ["Q3973051", "Q83405"],
+        "Mine": ["Q820477"],
         "Mill": ["Q44494"],
+        "Power station": ["Q339353", "Q15911738", "Q200297", "Q6558431", "Q1601458"],
+        "Transmitter mast": ["Q1068623"],
         "Telephone exchange": ["Q256132"],
-        "Power station": ["Q339353"],
-        "Wash house": ["Q1690211"],
+        "Hydrological station": ["Q3497441"],
         "Weather station": ["Q190107"],
+        "Wash house": ["Q1690211"],
         "Learned society": ["Q955824"],
-        "Observatory": ["Q1254933", "Q62832"],
-        "Factory": ["Q3973051"]
+        "Observatory": ["Q1254933", "Q62832"]
+      },
+      "Commerce": {
+        "Shopping centre": ["Q11315"],
+        "Market": ["Q132510"],
+        "Bank": ["Q22687"]
       },
       "Services": {
-        "Healthcare": ["Q16917", "Q1774898", "Q210999"],
+        "Healthcare": ["Q16917", "Q1774898", "Q210999", "Q4287745"],
         "Service": ["Q13226383"],
         "Social enterprise": ["Q1071015"],
         "Non-profit organisation": ["Q163740"]
@@ -255,11 +303,13 @@
     "color": "#8D6E63",
     "subgroups": {
       "Sites": {
-        "Archaeological site": ["Q839954"],
+        "Archaeological site": ["Q839954", "Q21752084"],
         "Archaeological park": ["Q3363945"],
+        "Megalith": ["Q164240", "Q193475", "Q935773"],
+        "Dolmen": ["Q101659"],
         "Ruins": ["Q109607", "Q17485079"],
         "Ancient city": ["Q15661340"],
-        "Amphitheatre": ["Q41735"],
+        "Amphitheatre": ["Q41735", "Q7362268"],
         "Roman theatre": ["Q3243464"],
         "Roman baths": ["Q1341387"]
       }
@@ -270,7 +320,7 @@
     "subgroups": {
       "Monuments": {
         "Monument": ["Q4989906", "Q5003624", "Q1885014"],
-        "War memorial": ["Q575759", "Q114124381"],
+        "War memorial": ["Q575759", "Q114124381", "Q129566086"],
         "Triumphal arch": ["Q200688"],
         "Commemorative plaque": ["Q721747"],
         "Statue": ["Q179700", "Q2293362"],

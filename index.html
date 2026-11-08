@@ -148,7 +148,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     // Change this when regions.json, regions_boundaries.geojson or category_config.json change, so browsers reload them
-    var STATIC_VERSION = '2026-11-08';
+    var STATIC_VERSION = '2026-11-08b';
     var TREND_DAYS = 7;
 
     var map = L.map('map', { preferCanvas: true, zoomControl: false }).setView([42.7, 25.5], 7);
@@ -488,8 +488,9 @@
             var lat = f.geometry.coordinates[1], lon = f.geometry.coordinates[0];
             var pop = `<div style="text-align:center"><b>${esc(p.name)}</b><br><small>${esc(p.wikidata)} · ${esc(p.subcategory || 'Other')}</small>
             <div class="logo-row"><a href="https://www.wikidata.org/wiki/${encodeURIComponent(p.wikidata)}" target="_blank" rel="noopener" class="logo-link" title="Wikidata"><img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Wikidata-logo.svg" alt="Wikidata"></a>`;
-            if (p.osm_id) pop += `<a href="https://www.openstreetmap.org/${esc(p.osm_id)}" target="_blank" rel="noopener" class="logo-link" title="OpenStreetMap"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Openstreetmap_logo.svg" alt="OSM"></a>`;
-            else pop += `<a href="https://www.openstreetmap.org/#map=18/${lat}/${lon}" target="_blank" rel="noopener" style="font-size:11px">Open location in OSM</a>`;
+            var osmHref = p.osm_id ? `https://www.openstreetmap.org/${esc(p.osm_id)}` : `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+            var osmTitle = p.osm_id ? 'Open the linked OSM object' : 'Not linked yet: open this location in OSM';
+            pop += `<a href="${osmHref}" target="_blank" rel="noopener" class="logo-link" title="${osmTitle}"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Openstreetmap_logo.svg" alt="OSM"></a>`;
             pop += `</div></div>`;
 
             var color = isD ? '#2ecc71' : (groupColors[p.group] || OTHER_COLOR);
