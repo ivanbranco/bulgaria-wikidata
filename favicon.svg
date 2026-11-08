@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Bulgaria OSM-Wikidata</title>
+  <defs>
+    <!-- map pin: round head with a point at the bottom -->
+    <path id="pin" d="M32 2C19.3 2 9 12.3 9 25c0 16.5 23 37 23 37s23-20.5 23-37C55 12.3 44.7 2 32 2z"/>
+    <clipPath id="c"><use href="#pin"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="64" height="17" y="0" fill="#FFFFFF"/>
+    <rect width="64" height="16" y="17" fill="#00966E"/>
+    <rect width="64" height="31" y="33" fill="#D62612"/>
+  </g>
+  <use href="#pin" fill="none" stroke="#3F4A52" stroke-width="3" stroke-linejoin="round"/>
+</svg>
